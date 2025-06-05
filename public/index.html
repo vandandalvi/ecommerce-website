@@ -981,7 +981,7 @@
                             <p><strong>Email:</strong> ${order.customerEmail}</p>
                             <p><strong>Phone:</strong> ${order.phone}</p>
                             <p><strong>Address:</strong> ${order.address}, ${order.city}, ${order.taluka} - ${order.pincode}</p>
-                            <p><strong>Price:</strong> $${order.price}</p>
+                            <p><strong>Price:</strong> ₹${order.price}</p>
                             <p><strong>Date:</strong> ${new Date(order.createdAt).toLocaleDateString()}</p>
                             <span class="order-status status-${order.status}">${order.status.toUpperCase()}</span>
                             <button onclick="deleteOrder('${order._id}')" class="delete-btn" style="margin-left: 10px;">Delete</button>
@@ -1063,7 +1063,7 @@
                         <div style="margin: 20px 0;">
                             <img src="${product.mainImage}" alt="${product.name}" style="width: 300px; height: 300px; object-fit: cover;">
                         </div>
-                        <p><strong>Price: $${product.price}</strong></p>
+                        <p><strong>Price: ₹${product.price}</strong></p>
                         <h3>Description:</h3>
                         <p>${product.detailedDescription}</p>
                         <h3>Additional Images:</h3>
