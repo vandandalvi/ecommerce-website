@@ -1038,7 +1038,7 @@
                             <img src="${product.mainImage}" alt="${product.name}" onclick="showProductDetail('${product._id}')">
                             <h4>${product.name}</h4>
                             <p>${product.description}</p>
-                            <p><strong>Price: $${product.price}</strong></p>
+                            <p><strong>Price: ₹${product.price}</strong></p>
                             <button onclick="buyProduct('${product._id}', '${product.name}', ${product.price})">Buy</button>
                         </div>
                     `).join('');
