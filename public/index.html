@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,7 @@
             box-sizing: border-box;
         }
 
-        body { 
+        body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
@@ -29,7 +29,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
+            background:
                 radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
                 radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
@@ -38,15 +38,22 @@
         }
 
         @keyframes backgroundFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
         }
 
         /* Navigation */
-        nav { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 20px 40px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
@@ -59,8 +66,15 @@
         }
 
         @keyframes slideDown {
-            from { transform: translateY(-100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         nav h1 {
@@ -94,7 +108,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.5s ease;
         }
 
@@ -108,9 +122,9 @@
         }
 
         /* Form Containers */
-        .form-container { 
-            max-width: 450px; 
-            margin: 40px auto; 
+        .form-container {
+            max-width: 450px;
+            margin: 40px auto;
             padding: 40px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
@@ -121,11 +135,19 @@
         }
 
         @keyframes fadeInUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
-        .form-container h2, .form-container h3 {
+        .form-container h2,
+        .form-container h3 {
             text-align: center;
             margin-bottom: 30px;
             background: linear-gradient(135deg, #667eea, #764ba2);
@@ -135,10 +157,12 @@
             font-weight: 700;
         }
 
-        .form-container input, .form-container select, .form-container textarea { 
-            width: 100%; 
-            padding: 16px 20px; 
-            margin: 12px 0; 
+        .form-container input,
+        .form-container select,
+        .form-container textarea {
+            width: 100%;
+            padding: 16px 20px;
+            margin: 12px 0;
             border: 2px solid rgba(102, 126, 234, 0.1);
             border-radius: 12px;
             font-size: 16px;
@@ -146,19 +170,21 @@
             background: rgba(255, 255, 255, 0.8);
         }
 
-        .form-container input:focus, .form-container select:focus, .form-container textarea:focus {
+        .form-container input:focus,
+        .form-container select:focus,
+        .form-container textarea:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
             transform: translateY(-2px);
         }
 
-        .form-container button { 
-            width: 100%; 
-            padding: 16px; 
+        .form-container button {
+            width: 100%;
+            padding: 16px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; 
-            border: none; 
+            color: white;
+            border: none;
             border-radius: 12px;
             cursor: pointer;
             font-size: 16px;
@@ -178,15 +204,15 @@
         }
 
         /* Product Grid */
-        .product-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
-            gap: 30px; 
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
             margin: 40px 20px;
             padding: 0 20px;
         }
 
-        .product-card { 
+        .product-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -219,10 +245,10 @@
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
         }
 
-        .product-card img { 
-            width: 100%; 
-            height: 220px; 
-            object-fit: cover; 
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
             border-radius: 12px;
             transition: transform 0.3s ease;
         }
@@ -231,7 +257,7 @@
             transform: scale(1.05);
         }
 
-        .product-card h4 { 
+        .product-card h4 {
             margin: 15px 0 10px 0;
             font-size: 1.3rem;
             font-weight: 700;
@@ -244,13 +270,13 @@
             line-height: 1.5;
         }
 
-        .product-card button { 
-            padding: 12px 20px; 
+        .product-card button {
+            padding: 12px 20px;
             background: linear-gradient(135deg, #00c851 0%, #007e33 100%);
-            color: white; 
-            border: none; 
+            color: white;
+            border: none;
             border-radius: 25px;
-            cursor: pointer; 
+            cursor: pointer;
             margin: 8px 5px;
             font-weight: 600;
             transition: all 0.3s ease;
@@ -258,45 +284,50 @@
             overflow: hidden;
         }
 
-        .product-card button:hover { 
+        .product-card button:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(0, 200, 81, 0.3);
         }
 
-        .product-card .delete-btn { 
+        .product-card .delete-btn {
             background: linear-gradient(135deg, #ff4757 0%, #c44569 100%);
         }
 
-        .product-card .delete-btn:hover { 
+        .product-card .delete-btn:hover {
             box-shadow: 0 8px 20px rgba(255, 71, 87, 0.3);
         }
 
         /* Modal Styles */
-        .modal { 
-            display: none; 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background: rgba(0,0,0,0.7);
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(5px);
             z-index: 1000;
             animation: fadeIn 0.3s ease;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
-        .modal-content { 
+        .modal-content {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
-            margin: 5% auto; 
-            padding: 40px; 
-            width: 90%; 
-            max-width: 900px; 
+            margin: 5% auto;
+            padding: 40px;
+            width: 90%;
+            max-width: 900px;
             max-height: 85vh;
             overflow-y: auto;
             border-radius: 24px;
@@ -306,17 +337,24 @@
         }
 
         @keyframes modalSlideIn {
-            from { transform: translateY(-50px) scale(0.9); opacity: 0; }
-            to { transform: translateY(0) scale(1); opacity: 1; }
+            from {
+                transform: translateY(-50px) scale(0.9);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
         }
 
-        .close-btn { 
-            position: absolute; 
-            top: 20px; 
-            right: 20px; 
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
             background: linear-gradient(135deg, #ff4757 0%, #c44569 100%);
-            color: white; 
-            border: none; 
+            color: white;
+            border: none;
             padding: 12px 16px;
             border-radius: 50%;
             cursor: pointer;
@@ -330,19 +368,22 @@
         }
 
         /* Dashboard Styles */
-        #adminDashboard, #customerDashboard {
+        #adminDashboard,
+        #customerDashboard {
             padding: 40px;
             animation: fadeInUp 0.8s ease-out;
         }
 
-        #adminDashboard h2, #customerDashboard h2 {
+        #adminDashboard h2,
+        #customerDashboard h2 {
             color: white;
             font-size: 2.5rem;
             margin-bottom: 30px;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
-        #adminDashboard h3, #customerDashboard h3 {
+        #adminDashboard h3,
+        #customerDashboard h3 {
             color: white;
             font-size: 1.8rem;
             margin: 30px 0 20px 0;
@@ -350,12 +391,12 @@
         }
 
         /* Order Cards */
-        .order-card { 
+        .order-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 25px; 
-            margin: 15px 0; 
+            padding: 25px;
+            margin: 15px 0;
             border-radius: 16px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
@@ -365,10 +406,10 @@
             transform: translateY(-3px);
         }
 
-        .order-status { 
-            padding: 8px 16px; 
-            border-radius: 20px; 
-            color: white; 
+        .order-status {
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: white;
             font-weight: 600;
             display: inline-block;
             text-transform: uppercase;
@@ -376,22 +417,22 @@
             letter-spacing: 0.5px;
         }
 
-        .status-pending { 
+        .status-pending {
             background: linear-gradient(135deg, #ffc107 0%, #ff8f00 100%);
             color: white;
         }
 
-        .status-completed { 
+        .status-completed {
             background: linear-gradient(135deg, #00c851 0%, #007e33 100%);
         }
 
-        .status-cancelled { 
+        .status-cancelled {
             background: linear-gradient(135deg, #ff4757 0%, #c44569 100%);
         }
 
         /* Message Areas */
-        .loading { 
-            text-align: center; 
+        .loading {
+            text-align: center;
             padding: 40px;
             color: white;
             font-size: 1.2rem;
@@ -410,12 +451,14 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
-        .error { 
-            color: #ff4757; 
-            padding: 16px 20px; 
+        .error {
+            color: #ff4757;
+            padding: 16px 20px;
             background: rgba(255, 71, 87, 0.1);
             border: 1px solid rgba(255, 71, 87, 0.3);
             border-radius: 12px;
@@ -423,9 +466,9 @@
             backdrop-filter: blur(10px);
         }
 
-        .success { 
-            color: #00c851; 
-            padding: 16px 20px; 
+        .success {
+            color: #00c851;
+            padding: 16px 20px;
             background: rgba(0, 200, 81, 0.1);
             border: 1px solid rgba(0, 200, 81, 0.3);
             border-radius: 12px;
@@ -475,7 +518,8 @@
                 padding: 0 10px;
             }
 
-            #adminDashboard, #customerDashboard {
+            #adminDashboard,
+            #customerDashboard {
                 padding: 20px;
             }
 
@@ -488,9 +532,17 @@
 
         /* Special Animations */
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
         .form-container button:hover {
@@ -523,6 +575,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav>
@@ -549,7 +602,8 @@
                 </select>
                 <button type="submit"><i class="fas fa-sign-in-alt"></i> Login</button>
             </form>
-            <button onclick="showSignup()" style="background: transparent; color: #667eea; box-shadow: none;">Don't have account? <strong>Sign Up</strong></button>
+            <button onclick="showSignup()" style="background: transparent; color: #667eea; box-shadow: none;">Don't have
+                account? <strong>Sign Up</strong></button>
         </div>
     </div>
 
@@ -562,12 +616,12 @@
                 <input type="email" id="signupEmail" placeholder="✉️ Email" required>
                 <input type="password" id="signupPassword" placeholder="🔒 Password" required>
                 <select id="signupUserType">
-                    <option value="customer">👤 Customer</option>
-                    <option value="admin">⚙️ Admin</option>
+                    <option value="customer">Customer</option>
                 </select>
                 <button type="submit"><i class="fas fa-user-plus"></i> Sign Up</button>
             </form>
-            <button onclick="showLogin()" style="background: transparent; color: #667eea; box-shadow: none;">Already have account? <strong>Login</strong></button>
+            <button onclick="showLogin()" style="background: transparent; color: #667eea; box-shadow: none;">Already
+                have account? <strong>Login</strong></button>
         </div>
     </div>
 
@@ -575,7 +629,7 @@
     <div id="adminDashboard" style="display: none;">
         <h2><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h2>
         <button onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
-        
+
         <div class="form-container">
             <h3><i class="fas fa-plus-circle"></i> Add Product</h3>
             <form id="addProductForm">
@@ -606,7 +660,7 @@
     <div id="customerDashboard" style="display: none;">
         <h2>Welcome, <span id="customerName"></span>! <i class="fas fa-smile"></i></h2>
         <button onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
-        
+
         <h3><i class="fas fa-store"></i> Products</h3>
         <div id="productsList" class="product-grid"></div>
     </div>
@@ -633,7 +687,9 @@
                 <input type="text" id="orderCity" placeholder="🏙️ City" required>
                 <input type="text" id="orderTaluka" placeholder="🗺️ Taluka" required>
                 <button type="submit"><i class="fas fa-check-circle"></i> Confirm Order</button>
-                <button type="button" onclick="closeBuyModal()" style="background: linear-gradient(135deg, #ff4757 0%, #c44569 100%);"><i class="fas fa-times"></i> Cancel</button>
+                <button type="button" onclick="closeBuyModal()"
+                    style="background: linear-gradient(135deg, #ff4757 0%, #c44569 100%);"><i class="fas fa-times"></i>
+                    Cancel</button>
             </form>
         </div>
     </div>
@@ -655,9 +711,9 @@
         const API_BASE_URL = window.location.origin; // Use current domain
 
         // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             showLogin();
-            
+
             // Form event listeners
             document.getElementById('loginForm').addEventListener('submit', handleLogin);
             document.getElementById('signupForm').addEventListener('submit', handleSignup);
@@ -727,7 +783,7 @@
                 if (response.ok) {
                     currentUser = data.user;
                     showMessage('Login successful!');
-                    
+
                     if (type === 'admin') {
                         showAdminDashboard();
                     } else {
@@ -749,6 +805,12 @@
             const email = document.getElementById('signupEmail').value;
             const password = document.getElementById('signupPassword').value;
             const type = document.getElementById('signupUserType').value;
+
+            // Prevent admin signup
+            if (type === 'admin') {
+                showMessage('Admin signup is not allowed. Please contact administrator.', 'error');
+                return;
+            }
 
             try {
                 const response = await fetch(`${API_BASE_URL}/api/signup`, {
@@ -800,12 +862,12 @@
 
         async function handleAddProduct(e) {
             e.preventDefault();
-            
+
             const name = document.getElementById('productName').value;
             const description = document.getElementById('productDescription').value;
             const detailedDescription = document.getElementById('productDetailedDescription').value;
             const price = parseFloat(document.getElementById('productPrice').value);
-            
+
             const mainImageFile = document.getElementById('productMainImage').files[0];
             const subImage1File = document.getElementById('productSubImage1').files[0];
             const subImage2File = document.getElementById('productSubImage2').files[0];
@@ -857,7 +919,7 @@
 
         async function displayAdminProducts() {
             showLoading('adminProductsList');
-            
+
             try {
                 const response = await fetch(`${API_BASE_URL}/api/products`);
                 const products = await response.json();
@@ -904,7 +966,7 @@
 
         async function displayOrders() {
             showLoading('ordersList');
-            
+
             try {
                 const response = await fetch(`${API_BASE_URL}/api/orders`);
                 const orders = await response.json();
@@ -964,7 +1026,7 @@
 
         async function displayProducts() {
             showLoading('productsList');
-            
+
             try {
                 const response = await fetch(`${API_BASE_URL}/api/products`);
                 const products = await response.json();
@@ -1031,13 +1093,13 @@
                 <h4>${productName}</h4>
                 <p>Price: $${price}</p>
             `;
-            
+
             // Pre-fill customer name
             document.getElementById('orderName').value = currentUser.name;
-            
+
             // Close product detail modal if open
             closeProductDetail();
-            
+
             document.getElementById('buyModal').style.display = 'block';
         }
 
@@ -1048,7 +1110,7 @@
 
         async function handleOrder(e) {
             e.preventDefault();
-            
+
             const orderData = {
                 productId: selectedProductForOrder.id,
                 productName: selectedProductForOrder.name,
@@ -1091,7 +1153,7 @@
         }
 
         // Close modals when clicking outside
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             const modals = ['productDetailModal', 'buyModal', 'successModal'];
             modals.forEach(modalId => {
                 const modal = document.getElementById(modalId);
@@ -1102,4 +1164,5 @@
         }
     </script>
 </body>
+
 </html>
