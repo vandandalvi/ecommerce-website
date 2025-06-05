@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-commerce Website</title>
-    <style>
+     <style>
         * {
             margin: 0;
             padding: 0;
@@ -397,7 +396,7 @@
 <body>
     <!-- Navigation -->
     <nav>
-        <h1>E-Commerce Store</h1>
+        <h1>V Store</h1>
         <div id="navButtons">
             <button onclick="showLogin()">Login</button>
             <button onclick="showSignup()">Sign Up</button>
@@ -443,9 +442,25 @@
         <h3>Add Product</h3>
         <form id="addProductForm">
             <input type="text" id="productName" placeholder="Product Name" required>
-            <textarea id="productDescription" placeholder="Product Description" required></textarea>
-            <input type="url" id="productImage" placeholder="Image URL" required>
+            <br><br>
+            <textarea id="productDescription" placeholder="Short Description" required></textarea>
+            <br><br>
+            <textarea id="productDetailedDescription" placeholder="Detailed Description" required></textarea>
+            <br><br>
+            <label>Main Product Image:</label>
+            <input type="file" id="productMainImage" accept="image/*" required>
+            <br><br>
+            <label>Sub Image 1:</label>
+            <input type="file" id="productSubImage1" accept="image/*" required>
+            <br><br>
+            <label>Sub Image 2:</label>
+            <input type="file" id="productSubImage2" accept="image/*" required>
+            <br><br>
+            <label>Sub Image 3:</label>
+            <input type="file" id="productSubImage3" accept="image/*" required>
+            <br><br>
             <input type="number" id="productPrice" placeholder="Price" step="0.01" required>
+            <br><br>
             <button type="submit">Add Product</button>
         </form>
 
@@ -465,8 +480,16 @@
         <div id="productsList"></div>
     </div>
 
+    <!-- Product Detail Modal -->
+    <div id="productDetailModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
+        <div style="background: white; margin: 20px auto; padding: 20px; width: 80%; max-width: 800px; height: 80%; overflow-y: auto;">
+            <button onclick="closeProductDetail()" style="float: right; background: red; color: white; border: none; padding: 10px; cursor: pointer;">Close</button>
+            <div id="productDetailContent"></div>
+        </div>
+    </div>
+
     <!-- Buy Form Modal -->
-    <div id="buyModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);">
+    <div id="buyModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1001;">
         <div style="background: white; margin: 50px auto; padding: 20px; width: 400px;">
             <h3>Order Details</h3>
             <div id="selectedProduct"></div>
@@ -497,7 +520,7 @@
         // Global variables
         let currentUser = null;
         let selectedProductForOrder = null;
-        const API_BASE = window.location.origin + '/api';
+        let products = []; // In-memory storage for products
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
@@ -510,21 +533,14 @@
             document.getElementById('orderForm').addEventListener('submit', handleOrder);
         });
 
-        // API Helper functions
-        async function apiCall(endpoint, method = 'GET', data = null) {
-            const options = {
-                method,
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            };
-            
-            if (data) {
-                options.body = JSON.stringify(data);
-            }
-            
-            const response = await fetch(API_BASE + endpoint, options);
-            return response.json();
+        // Helper function to convert file to base64
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
         }
 
         // Navigation functions
@@ -552,22 +568,22 @@
             const password = document.getElementById('loginPassword').value;
             const type = document.getElementById('userType').value;
 
-            try {
-                const result = await apiCall('/login', 'POST', { email, password, type });
+            // Mock authentication - in real app, this would call an API
+            if (email && password) {
+                currentUser = { 
+                    email: email, 
+                    name: email.split('@')[0], 
+                    type: type 
+                };
                 
-                if (result.error) {
-                    alert(result.error);
+                if (type === 'admin') {
+                    showAdminDashboard();
                 } else {
-                    currentUser = result.user;
-                    if (result.user.type === 'admin') {
-                        showAdminDashboard();
-                    } else {
-                        showCustomerDashboard();
-                    }
-                    updateNavigation();
+                    showCustomerDashboard();
                 }
-            } catch (error) {
-                alert('Login failed. Please try again.');
+                updateNavigation();
+            } else {
+                alert('Please enter valid credentials');
             }
         }
 
@@ -578,17 +594,12 @@
             const password = document.getElementById('signupPassword').value;
             const type = document.getElementById('signupUserType').value;
 
-            try {
-                const result = await apiCall('/signup', 'POST', { name, email, password, type });
-                
-                if (result.error) {
-                    alert(result.error);
-                } else {
-                    alert('Account created successfully!');
-                    showLogin();
-                }
-            } catch (error) {
-                alert('Signup failed. Please try again.');
+            // Mock signup - in real app, this would call an API
+            if (name && email && password) {
+                alert('Account created successfully!');
+                showLogin();
+            } else {
+                alert('Please fill all fields');
             }
         }
 
@@ -613,97 +624,70 @@
             hideAllSections();
             document.getElementById('adminDashboard').style.display = 'block';
             await displayAdminProducts();
-            await displayOrders();
         }
 
         async function handleAddProduct(e) {
             e.preventDefault();
+            
             const name = document.getElementById('productName').value;
             const description = document.getElementById('productDescription').value;
-            const image = document.getElementById('productImage').value;
+            const detailedDescription = document.getElementById('productDetailedDescription').value;
             const price = parseFloat(document.getElementById('productPrice').value);
+            
+            const mainImageFile = document.getElementById('productMainImage').files[0];
+            const subImage1File = document.getElementById('productSubImage1').files[0];
+            const subImage2File = document.getElementById('productSubImage2').files[0];
+            const subImage3File = document.getElementById('productSubImage3').files[0];
+
+            if (!mainImageFile || !subImage1File || !subImage2File || !subImage3File) {
+                alert('Please select all required images');
+                return;
+            }
 
             try {
-                const result = await apiCall('/products', 'POST', { name, description, image, price });
-                
-                if (result.error) {
-                    alert(result.error);
-                } else {
-                    document.getElementById('addProductForm').reset();
-                    await displayAdminProducts();
-                    alert('Product added successfully!');
-                }
+                // Convert images to base64
+                const mainImage = await fileToBase64(mainImageFile);
+                const subImage1 = await fileToBase64(subImage1File);
+                const subImage2 = await fileToBase64(subImage2File);
+                const subImage3 = await fileToBase64(subImage3File);
+
+                const product = {
+                    id: Date.now().toString(),
+                    name,
+                    description,
+                    detailedDescription,
+                    price,
+                    mainImage,
+                    subImages: [subImage1, subImage2, subImage3],
+                    createdAt: new Date()
+                };
+
+                products.push(product);
+                document.getElementById('addProductForm').reset();
+                await displayAdminProducts();
+                alert('Product added successfully!');
             } catch (error) {
                 alert('Failed to add product. Please try again.');
             }
         }
 
         async function displayAdminProducts() {
-            try {
-                const products = await apiCall('/products');
-                const container = document.getElementById('adminProductsList');
-                container.innerHTML = products.map(product => `
-                    <div style="border: 1px solid #ccc; padding: 10px; margin: 10px 0;">
-                        <img src="${product.image}" alt="${product.name}" style="width: 100px; height: 100px; object-fit: cover;">
-                        <h4>${product.name}</h4>
-                        <p>${product.description}</p>
-                        <p><strong>Price: $${product.price}</strong></p>
-                        <button onclick="deleteProduct('${product._id}')">Delete</button>
-                    </div>
-                `).join('');
-            } catch (error) {
-                console.error('Failed to load products:', error);
-            }
+            const container = document.getElementById('adminProductsList');
+            container.innerHTML = products.map(product => `
+                <div style="border: 1px solid #ccc; padding: 10px; margin: 10px 0;">
+                    <img src="${product.mainImage}" alt="${product.name}" style="width: 100px; height: 100px; object-fit: cover;">
+                    <h4>${product.name}</h4>
+                    <p>${product.description}</p>
+                    <p><strong>Price: $${product.price}</strong></p>
+                    <button onclick="deleteProduct('${product.id}')">Delete</button>
+                </div>
+            `).join('');
         }
 
         async function deleteProduct(id) {
-            try {
-                await apiCall(`/products/${id}`, 'DELETE');
+            if (confirm('Are you sure you want to delete this product?')) {
+                products = products.filter(product => product.id !== id);
                 await displayAdminProducts();
-            } catch (error) {
-                alert('Failed to delete product.');
-            }
-        }
-
-        async function displayOrders() {
-            try {
-                const orders = await apiCall('/orders');
-                const container = document.getElementById('ordersList');
-                container.innerHTML = orders.map(order => `
-                    <div style="border: 1px solid #ccc; padding: 10px; margin: 10px 0;">
-                        <h4>Order #${order._id.slice(-6)}</h4>
-                        <p><strong>Product:</strong> ${order.productName}</p>
-                        <p><strong>Customer:</strong> ${order.customerName}</p>
-                        <p><strong>Email:</strong> ${order.customerEmail}</p>
-                        <p><strong>Phone:</strong> ${order.phone}</p>
-                        <p><strong>Alt Phone:</strong> ${order.altPhone || 'N/A'}</p>
-                        <p><strong>Address:</strong> ${order.address}</p>
-                        <p><strong>Pincode:</strong> ${order.pincode}</p>
-                        <p><strong>City:</strong> ${order.city}</p>
-                        <p><strong>Taluka:</strong> ${order.taluka}</p>
-                        <p><strong>Total:</strong> ${order.price}</p>
-                        <p><strong>Date:</strong> ${new Date(order.createdAt).toLocaleString()}</p>
-                        <button onclick="deleteOrder('${order._id}')" style="background-color: #ff4444; color: white; border: none; padding: 5px 10px; cursor: pointer;">Delete Order</button>
-                    </div>
-                `).join('');
-            } catch (error) {
-                console.error('Failed to load orders:', error);
-            }
-        }
-
-        async function deleteOrder(id) {
-            if (confirm('Are you sure you want to delete this order? This action cannot be undone.')) {
-                try {
-                    const result = await apiCall(`/orders/${id}`, 'DELETE');
-                    if (result.error) {
-                        alert(result.error);
-                    } else {
-                        alert('Order deleted successfully!');
-                        await displayOrders(); // Refresh the orders list
-                    }
-                } catch (error) {
-                    alert('Failed to delete order. Please try again.');
-                }
             }
         }
 
@@ -716,21 +700,45 @@
         }
 
         async function displayProducts() {
-            try {
-                const products = await apiCall('/products');
-                const container = document.getElementById('productsList');
-                container.innerHTML = products.map(product => `
-                    <div style="border: 1px solid #ccc; padding: 10px; margin: 10px 0;">
-                        <img src="${product.image}" alt="${product.name}" style="width: 150px; height: 150px; object-fit: cover;">
-                        <h4>${product.name}</h4>
-                        <p>${product.description}</p>
-                        <p><strong>Price: $${product.price}</strong></p>
-                        <button onclick="buyProduct('${product._id}', '${product.name}', ${product.price})">Buy</button>
-                    </div>
-                `).join('');
-            } catch (error) {
-                console.error('Failed to load products:', error);
-            }
+            const container = document.getElementById('productsList');
+            container.innerHTML = products.map(product => `
+                <div style="border: 1px solid #ccc; padding: 10px; margin: 10px 0;">
+                    <img src="${product.mainImage}" alt="${product.name}" style="width: 150px; height: 150px; object-fit: cover; cursor: pointer;" onclick="showProductDetail('${product.id}')">
+                    <h4>${product.name}</h4>
+                    <p>${product.description}</p>
+                    <p><strong>Price: $${product.price}</strong></p>
+                    <button onclick="buyProduct('${product.id}', '${product.name}', ${product.price})">Buy</button>
+                </div>
+            `).join('');
+        }
+
+        function showProductDetail(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const detailContent = document.getElementById('productDetailContent');
+            detailContent.innerHTML = `
+                <h2>${product.name}</h2>
+                <div style="margin: 20px 0;">
+                    <img src="${product.mainImage}" alt="${product.name}" style="width: 300px; height: 300px; object-fit: cover;">
+                </div>
+                <p><strong>Price: $${product.price}</strong></p>
+                <h3>Description:</h3>
+                <p>${product.detailedDescription}</p>
+                <h3>Additional Images:</h3>
+                <div style="display: flex; gap: 10px; margin: 20px 0;">
+                    <img src="${product.subImages[0]}" alt="Sub image 1" style="width: 150px; height: 150px; object-fit: cover;">
+                    <img src="${product.subImages[1]}" alt="Sub image 2" style="width: 150px; height: 150px; object-fit: cover;">
+                    <img src="${product.subImages[2]}" alt="Sub image 3" style="width: 150px; height: 150px; object-fit: cover;">
+                </div>
+                <button onclick="buyProduct('${product.id}', '${product.name}', ${product.price})" style="background: green; color: white; padding: 10px 20px; border: none; cursor: pointer; font-size: 16px;">Buy Now</button>
+            `;
+
+            document.getElementById('productDetailModal').style.display = 'block';
+        }
+
+        function closeProductDetail() {
+            document.getElementById('productDetailModal').style.display = 'none';
         }
 
         function buyProduct(productId, productName, price) {
@@ -742,6 +750,9 @@
             
             // Pre-fill customer name
             document.getElementById('orderName').value = currentUser.name;
+            
+            // Close product detail modal if open
+            closeProductDetail();
             
             document.getElementById('buyModal').style.display = 'block';
         }
@@ -765,59 +776,20 @@
                 address: document.getElementById('orderAddress').value,
                 pincode: document.getElementById('orderPincode').value,
                 city: document.getElementById('orderCity').value,
-                taluka: document.getElementById('orderTaluka').value
+                taluka: document.getElementById('orderTaluka').value,
+                createdAt: new Date()
             };
 
-            try {
-                const result = await apiCall('/orders', 'POST', orderData);
-                
-                if (result.error) {
-                    alert(result.error);
-                } else {
-                    closeBuyModal();
-                    document.getElementById('successModal').style.display = 'block';
-                }
-            } catch (error) {
-                alert('Failed to place order. Please try again.');
-            }
+            // In a real app, this would be sent to a server
+            console.log('Order placed:', orderData);
+            
+            closeBuyModal();
+            document.getElementById('successModal').style.display = 'block';
         }
 
         function closeSuccessModal() {
             document.getElementById('successModal').style.display = 'none';
         }
-    </script>
-
-
-    <script>
-        // Add some basic functionality for demonstration
-        function showLogin() {
-            document.getElementById('loginSection').style.display = 'block';
-            document.getElementById('signupSection').style.display = 'none';
-        }
-
-        function showSignup() {
-            document.getElementById('signupSection').style.display = 'block';
-            document.getElementById('loginSection').style.display = 'none';
-        }
-
-        function closeBuyModal() {
-            document.getElementById('buyModal').style.display = 'none';
-        }
-
-        function closeSuccessModal() {
-            document.getElementById('successModal').style.display = 'none';
-        }
-
-        function logout() {
-            document.getElementById('adminDashboard').style.display = 'none';
-            document.getElementById('customerDashboard').style.display = 'none';
-            document.getElementById('loginSection').style.display = 'none';
-            document.getElementById('signupSection').style.display = 'none';
-            document.getElementById('navButtons').style.display = 'block';
-        }
-
-        // Show login form by default for demonstration
-        showLogin();
     </script>
 </body>
 </html>
