@@ -4,468 +4,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-commerce Website</title>
-     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #f4f4f4; }
+        .form-container { max-width: 400px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; }
+        .form-container input, .form-container select, .form-container textarea { 
+            width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; 
         }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #333;
-        }
-
-        /* Navigation */
-        nav {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        nav h1 {
-            color: #667eea;
-            font-size: 1.8rem;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        #navButtons button {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 0.7rem 1.5rem;
-            margin-left: 0.5rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        #navButtons button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        /* Forms */
-        #loginSection, #signupSection {
-            max-width: 400px;
-            margin: 2rem auto;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        #loginSection h2, #signupSection h2 {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: #667eea;
-            font-size: 1.8rem;
-        }
-
-        form input, form select, form textarea {
-            width: 100%;
-            padding: 0.8rem;
-            margin: 0.5rem 0;
-            border: 2px solid #e1e5e9;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.8);
-        }
-
-        form input:focus, form select:focus, form textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-            transform: translateY(-1px);
-        }
-
-        form button[type="submit"] {
-            width: 100%;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 0.8rem;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
-        }
-
-        form button[type="submit"]:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-        }
-
-        #loginSection button:last-child, #signupSection button:last-child {
-            background: transparent;
-            border: 2px solid #667eea;
-            color: #667eea;
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
-            cursor: pointer;
-            margin-top: 1rem;
-            width: 100%;
-            transition: all 0.3s ease;
-        }
-
-        #loginSection button:last-child:hover, #signupSection button:last-child:hover {
-            background: #667eea;
-            color: white;
-        }
-
-        /* Dashboards */
-        #adminDashboard, #customerDashboard {
-            max-width: 1200px;
-            margin: 2rem auto;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        #adminDashboard h2, #customerDashboard h2 {
-            color: #667eea;
-            margin-bottom: 1rem;
-            font-size: 2rem;
-            text-align: center;
-        }
-
-        #adminDashboard h3 {
-            color: #764ba2;
-            margin: 2rem 0 1rem 0;
-            font-size: 1.4rem;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 0.5rem;
-        }
-
-        #adminDashboard button, #customerDashboard button {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin: 0.2rem;
-        }
-
-        #adminDashboard button:hover, #customerDashboard button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        /* Product Cards */
-        #productsList, #adminProductsList {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 15px;
-            padding: 1.5rem;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(102, 126, 234, 0.1);
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .product-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-        }
-
-        .product-card h4 {
-            color: #667eea;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .product-card p {
-            color: #666;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .product-price {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #764ba2;
-            margin-bottom: 1rem;
-        }
-
-        .product-card button {
-            width: 100%;
-        }
-
-        /* Orders List */
-        #ordersList {
-            margin-top: 1rem;
-        }
-
-        .order-item {
-            background: white;
-            border-radius: 10px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border-left: 4px solid #667eea;
-        }
-
-        .order-item h4 {
-            color: #667eea;
-            margin-bottom: 0.5rem;
-        }
-
-        .order-item p {
-            margin: 0.2rem 0;
-            color: #666;
-        }
-
-        /* Modal Styles */
-        #buyModal, #successModal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
-            backdrop-filter: blur(5px);
-        }
-
-        #buyModal > div, #successModal > div {
-            background: white;
-            margin: 50px auto;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
-            position: relative;
-            animation: modalSlideIn 0.3s ease;
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        #buyModal h3, #successModal h3 {
-            color: #667eea;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        #selectedProduct {
-            background: #f8f9fa;
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            border-left: 4px solid #667eea;
-        }
-
-        #orderForm button {
-            margin: 0.5rem 0.5rem 0 0;
-        }
-
-        #orderForm button[type="button"] {
-            background: #6c757d;
-        }
-
-        #orderForm button[type="button"]:hover {
-            background: #5a6268;
-        }
-
-        /* Success Modal */
-        #successModal > div {
-            text-align: center;
-        }
-
-        #successModal h3 {
-            color: #28a745;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        #successModal p {
-            color: #666;
-            margin-bottom: 1.5rem;
-        }
-
-        #successModal button {
-            background: linear-gradient(45deg, #28a745, #20c997);
-            color: white;
-            border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        #successModal button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
-            }
-
-            #navButtons {
-                display: flex;
-                gap: 0.5rem;
-            }
-
-            #loginSection, #signupSection, #adminDashboard, #customerDashboard {
-                margin: 1rem;
-                padding: 1.5rem;
-            }
-
-            #productsList, #adminProductsList {
-                grid-template-columns: 1fr;
-            }
-
-            #buyModal > div, #successModal > div {
-                margin: 20px;
-                padding: 1.5rem;
-            }
-        }
-
-        /* Loading Animation */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Utility Classes */
-        .text-center { text-align: center; }
-        .mb-1 { margin-bottom: 1rem; }
-        .mt-1 { margin-top: 1rem; }
-        .hidden { display: none !important; }
-        .visible { display: block !important; }
+        .form-container button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; }
+        .form-container button:hover { background: #0056b3; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin: 20px 0; }
+        .product-card { border: 1px solid #ddd; padding: 15px; border-radius: 5px; }
+        .product-card img { width: 100%; height: 200px; object-fit: cover; cursor: pointer; }
+        .product-card h4 { margin: 10px 0; }
+        .product-card button { padding: 10px 15px; background: #28a745; color: white; border: none; cursor: pointer; margin: 5px; }
+        .product-card button:hover { background: #218838; }
+        .product-card .delete-btn { background: #dc3545; }
+        .product-card .delete-btn:hover { background: #c82333; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; }
+        .modal-content { background: white; margin: 20px auto; padding: 20px; width: 80%; max-width: 800px; height: 80%; overflow-y: auto; position: relative; }
+        .close-btn { position: absolute; top: 10px; right: 15px; background: #dc3545; color: white; border: none; padding: 10px; cursor: pointer; }
+        .loading { text-align: center; padding: 20px; }
+        .error { color: red; padding: 10px; background: #ffe6e6; border: 1px solid red; margin: 10px 0; }
+        .success { color: green; padding: 10px; background: #e6ffe6; border: 1px solid green; margin: 10px 0; }
+        .order-card { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .order-status { padding: 5px 10px; border-radius: 3px; color: white; font-weight: bold; }
+        .status-pending { background: #ffc107; color: black; }
+        .status-completed { background: #28a745; }
+        .status-cancelled { background: #dc3545; }
     </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav>
-        <h1>V Store</h1>
+        <h1>E-Commerce Store</h1>
         <div id="navButtons">
             <button onclick="showLogin()">Login</button>
             <button onclick="showSignup()">Sign Up</button>
         </div>
     </nav>
 
+    <!-- Error/Success Messages -->
+    <div id="messageArea"></div>
+
     <!-- Login Form -->
     <div id="loginSection" style="display: none;">
-        <h2>Login</h2>
-        <form id="loginForm">
-            <input type="email" id="loginEmail" placeholder="Email" required>
-            <input type="password" id="loginPassword" placeholder="Password" required>
-            <select id="userType">
-                <option value="customer">Customer</option>
-                <option value="admin">Admin</option>
-            </select>
-            <button type="submit">Login</button>
-        </form>
-        <button onclick="showSignup()">Don't have account? Sign Up</button>
+        <div class="form-container">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <input type="email" id="loginEmail" placeholder="Email" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <select id="userType">
+                    <option value="customer">Customer</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <button type="submit">Login</button>
+            </form>
+            <button onclick="showSignup()">Don't have account? Sign Up</button>
+        </div>
     </div>
 
     <!-- Signup Form -->
     <div id="signupSection" style="display: none;">
-        <h2>Sign Up</h2>
-        <form id="signupForm">
-            <input type="text" id="signupName" placeholder="Full Name" required>
-            <input type="email" id="signupEmail" placeholder="Email" required>
-            <input type="password" id="signupPassword" placeholder="Password" required>
-            <select id="signupUserType">
-                <option value="customer">Customer</option>
-                <option value="admin">Admin</option>
-            </select>
-            <button type="submit">Sign Up</button>
-        </form>
-        <button onclick="showLogin()">Already have account? Login</button>
+        <div class="form-container">
+            <h2>Sign Up</h2>
+            <form id="signupForm">
+                <input type="text" id="signupName" placeholder="Full Name" required>
+                <input type="email" id="signupEmail" placeholder="Email" required>
+                <input type="password" id="signupPassword" placeholder="Password" required>
+                <select id="signupUserType">
+                    <option value="customer">Customer</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <button type="submit">Sign Up</button>
+            </form>
+            <button onclick="showLogin()">Already have account? Login</button>
+        </div>
     </div>
 
     <!-- Admin Dashboard -->
     <div id="adminDashboard" style="display: none;">
         <h2>Admin Dashboard</h2>
-        <button onclick="logout()">Logout</button>
+        <button onclick="logout()" style="background: #dc3545; color: white; border: none; padding: 10px; cursor: pointer;">Logout</button>
         
-        <h3>Add Product</h3>
-        <form id="addProductForm">
-            <input type="text" id="productName" placeholder="Product Name" required>
-            <br><br>
-            <textarea id="productDescription" placeholder="Short Description" required></textarea>
-            <br><br>
-            <textarea id="productDetailedDescription" placeholder="Detailed Description" required></textarea>
-            <br><br>
-            <label>Main Product Image:</label>
-            <input type="file" id="productMainImage" accept="image/*" required>
-            <br><br>
-            <label>Sub Image 1:</label>
-            <input type="file" id="productSubImage1" accept="image/*" required>
-            <br><br>
-            <label>Sub Image 2:</label>
-            <input type="file" id="productSubImage2" accept="image/*" required>
-            <br><br>
-            <label>Sub Image 3:</label>
-            <input type="file" id="productSubImage3" accept="image/*" required>
-            <br><br>
-            <input type="number" id="productPrice" placeholder="Price" step="0.01" required>
-            <br><br>
-            <button type="submit">Add Product</button>
-        </form>
+        <div class="form-container">
+            <h3>Add Product</h3>
+            <form id="addProductForm">
+                <input type="text" id="productName" placeholder="Product Name" required>
+                <textarea id="productDescription" placeholder="Short Description" required></textarea>
+                <textarea id="productDetailedDescription" placeholder="Detailed Description" required></textarea>
+                <label>Main Product Image:</label>
+                <input type="file" id="productMainImage" accept="image/*" required>
+                <label>Sub Image 1:</label>
+                <input type="file" id="productSubImage1" accept="image/*" required>
+                <label>Sub Image 2:</label>
+                <input type="file" id="productSubImage2" accept="image/*" required>
+                <label>Sub Image 3:</label>
+                <input type="file" id="productSubImage3" accept="image/*" required>
+                <input type="number" id="productPrice" placeholder="Price" step="0.01" required>
+                <button type="submit">Add Product</button>
+            </form>
+        </div>
 
         <h3>Products</h3>
-        <div id="adminProductsList"></div>
+        <div id="adminProductsList" class="product-grid"></div>
 
         <h3>Orders</h3>
         <div id="ordersList"></div>
@@ -474,23 +116,23 @@
     <!-- Customer Dashboard -->
     <div id="customerDashboard" style="display: none;">
         <h2>Welcome, <span id="customerName"></span></h2>
-        <button onclick="logout()">Logout</button>
+        <button onclick="logout()" style="background: #dc3545; color: white; border: none; padding: 10px; cursor: pointer;">Logout</button>
         
         <h3>Products</h3>
-        <div id="productsList"></div>
+        <div id="productsList" class="product-grid"></div>
     </div>
 
     <!-- Product Detail Modal -->
-    <div id="productDetailModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
-        <div style="background: white; margin: 20px auto; padding: 20px; width: 80%; max-width: 800px; height: 80%; overflow-y: auto;">
-            <button onclick="closeProductDetail()" style="float: right; background: red; color: white; border: none; padding: 10px; cursor: pointer;">Close</button>
+    <div id="productDetailModal" class="modal">
+        <div class="modal-content">
+            <button onclick="closeProductDetail()" class="close-btn">×</button>
             <div id="productDetailContent"></div>
         </div>
     </div>
 
     <!-- Buy Form Modal -->
-    <div id="buyModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1001;">
-        <div style="background: white; margin: 50px auto; padding: 20px; width: 400px;">
+    <div id="buyModal" class="modal">
+        <div class="modal-content" style="width: 400px; height: auto;">
             <h3>Order Details</h3>
             <div id="selectedProduct"></div>
             <form id="orderForm">
@@ -508,8 +150,8 @@
     </div>
 
     <!-- Success Modal -->
-    <div id="successModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);">
-        <div style="background: white; margin: 100px auto; padding: 20px; width: 300px; text-align: center;">
+    <div id="successModal" class="modal">
+        <div class="modal-content" style="width: 300px; height: auto; text-align: center;">
             <h3>Thank you for shopping!</h3>
             <p>You will be notified on WhatsApp soon</p>
             <button onclick="closeSuccessModal()">OK</button>
@@ -520,7 +162,7 @@
         // Global variables
         let currentUser = null;
         let selectedProductForOrder = null;
-        let products = []; // In-memory storage for products
+        const API_BASE_URL = window.location.origin; // Use current domain
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
@@ -532,6 +174,19 @@
             document.getElementById('addProductForm').addEventListener('submit', handleAddProduct);
             document.getElementById('orderForm').addEventListener('submit', handleOrder);
         });
+
+        // Helper functions
+        function showMessage(message, type = 'success') {
+            const messageArea = document.getElementById('messageArea');
+            messageArea.innerHTML = `<div class="${type}">${message}</div>`;
+            setTimeout(() => {
+                messageArea.innerHTML = '';
+            }, 5000);
+        }
+
+        function showLoading(elementId) {
+            document.getElementById(elementId).innerHTML = '<div class="loading">Loading...</div>';
+        }
 
         // Helper function to convert file to base64
         function fileToBase64(file) {
@@ -568,22 +223,33 @@
             const password = document.getElementById('loginPassword').value;
             const type = document.getElementById('userType').value;
 
-            // Mock authentication - in real app, this would call an API
-            if (email && password) {
-                currentUser = { 
-                    email: email, 
-                    name: email.split('@')[0], 
-                    type: type 
-                };
-                
-                if (type === 'admin') {
-                    showAdminDashboard();
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password, type })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    currentUser = data.user;
+                    showMessage('Login successful!');
+                    
+                    if (type === 'admin') {
+                        showAdminDashboard();
+                    } else {
+                        showCustomerDashboard();
+                    }
+                    updateNavigation();
                 } else {
-                    showCustomerDashboard();
+                    showMessage(data.error || 'Login failed', 'error');
                 }
-                updateNavigation();
-            } else {
-                alert('Please enter valid credentials');
+            } catch (error) {
+                console.error('Login error:', error);
+                showMessage('Network error. Please try again.', 'error');
             }
         }
 
@@ -594,12 +260,26 @@
             const password = document.getElementById('signupPassword').value;
             const type = document.getElementById('signupUserType').value;
 
-            // Mock signup - in real app, this would call an API
-            if (name && email && password) {
-                alert('Account created successfully!');
-                showLogin();
-            } else {
-                alert('Please fill all fields');
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/signup`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, email, password, type })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showMessage('Account created successfully!');
+                    showLogin();
+                } else {
+                    showMessage(data.error || 'Signup failed', 'error');
+                }
+            } catch (error) {
+                console.error('Signup error:', error);
+                showMessage('Network error. Please try again.', 'error');
             }
         }
 
@@ -608,6 +288,7 @@
             hideAllSections();
             showLogin();
             updateNavigation();
+            showMessage('Logged out successfully');
         }
 
         function updateNavigation() {
@@ -624,6 +305,7 @@
             hideAllSections();
             document.getElementById('adminDashboard').style.display = 'block';
             await displayAdminProducts();
+            await displayOrders();
         }
 
         async function handleAddProduct(e) {
@@ -640,7 +322,7 @@
             const subImage3File = document.getElementById('productSubImage3').files[0];
 
             if (!mainImageFile || !subImage1File || !subImage2File || !subImage3File) {
-                alert('Please select all required images');
+                showMessage('Please select all required images', 'error');
                 return;
             }
 
@@ -651,43 +333,134 @@
                 const subImage2 = await fileToBase64(subImage2File);
                 const subImage3 = await fileToBase64(subImage3File);
 
-                const product = {
-                    id: Date.now().toString(),
+                const productData = {
                     name,
                     description,
                     detailedDescription,
                     price,
                     mainImage,
-                    subImages: [subImage1, subImage2, subImage3],
-                    createdAt: new Date()
+                    subImages: [subImage1, subImage2, subImage3]
                 };
 
-                products.push(product);
-                document.getElementById('addProductForm').reset();
-                await displayAdminProducts();
-                alert('Product added successfully!');
+                const response = await fetch(`${API_BASE_URL}/api/products`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(productData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('addProductForm').reset();
+                    await displayAdminProducts();
+                    showMessage('Product added successfully!');
+                } else {
+                    showMessage(data.error || 'Failed to add product', 'error');
+                }
             } catch (error) {
-                alert('Failed to add product. Please try again.');
+                console.error('Add product error:', error);
+                showMessage('Failed to add product. Please try again.', 'error');
             }
         }
 
         async function displayAdminProducts() {
-            const container = document.getElementById('adminProductsList');
-            container.innerHTML = products.map(product => `
-                <div style="border: 1px solid #ccc; padding: 10px; margin: 10px 0;">
-                    <img src="${product.mainImage}" alt="${product.name}" style="width: 100px; height: 100px; object-fit: cover;">
-                    <h4>${product.name}</h4>
-                    <p>${product.description}</p>
-                    <p><strong>Price: $${product.price}</strong></p>
-                    <button onclick="deleteProduct('${product.id}')">Delete</button>
-                </div>
-            `).join('');
+            showLoading('adminProductsList');
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/products`);
+                const products = await response.json();
+
+                if (response.ok) {
+                    const container = document.getElementById('adminProductsList');
+                    container.innerHTML = products.map(product => `
+                        <div class="product-card">
+                            <img src="${product.mainImage}" alt="${product.name}">
+                            <h4>${product.name}</h4>
+                            <p>${product.description}</p>
+                            <p><strong>Price: $${product.price}</strong></p>
+                            <button onclick="deleteProduct('${product._id}')" class="delete-btn">Delete</button>
+                        </div>
+                    `).join('');
+                } else {
+                    showMessage('Failed to load products', 'error');
+                }
+            } catch (error) {
+                console.error('Display products error:', error);
+                showMessage('Network error loading products', 'error');
+            }
         }
 
         async function deleteProduct(id) {
             if (confirm('Are you sure you want to delete this product?')) {
-                products = products.filter(product => product.id !== id);
-                await displayAdminProducts();
+                try {
+                    const response = await fetch(`${API_BASE_URL}/api/products/${id}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (response.ok) {
+                        await displayAdminProducts();
+                        showMessage('Product deleted successfully');
+                    } else {
+                        showMessage('Failed to delete product', 'error');
+                    }
+                } catch (error) {
+                    console.error('Delete product error:', error);
+                    showMessage('Network error deleting product', 'error');
+                }
+            }
+        }
+
+        async function displayOrders() {
+            showLoading('ordersList');
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/orders`);
+                const orders = await response.json();
+
+                if (response.ok) {
+                    const container = document.getElementById('ordersList');
+                    container.innerHTML = orders.map(order => `
+                        <div class="order-card">
+                            <h4>Order #${order._id.slice(-6)}</h4>
+                            <p><strong>Product:</strong> ${order.productName}</p>
+                            <p><strong>Customer:</strong> ${order.customerName}</p>
+                            <p><strong>Email:</strong> ${order.customerEmail}</p>
+                            <p><strong>Phone:</strong> ${order.phone}</p>
+                            <p><strong>Address:</strong> ${order.address}, ${order.city}, ${order.taluka} - ${order.pincode}</p>
+                            <p><strong>Price:</strong> $${order.price}</p>
+                            <p><strong>Date:</strong> ${new Date(order.createdAt).toLocaleDateString()}</p>
+                            <span class="order-status status-${order.status}">${order.status.toUpperCase()}</span>
+                            <button onclick="deleteOrder('${order._id}')" class="delete-btn" style="margin-left: 10px;">Delete</button>
+                        </div>
+                    `).join('');
+                } else {
+                    showMessage('Failed to load orders', 'error');
+                }
+            } catch (error) {
+                console.error('Display orders error:', error);
+                showMessage('Network error loading orders', 'error');
+            }
+        }
+
+        async function deleteOrder(id) {
+            if (confirm('Are you sure you want to delete this order?')) {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/api/orders/${id}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (response.ok) {
+                        await displayOrders();
+                        showMessage('Order deleted successfully');
+                    } else {
+                        showMessage('Failed to delete order', 'error');
+                    }
+                } catch (error) {
+                    console.error('Delete order error:', error);
+                    showMessage('Network error deleting order', 'error');
+                }
             }
         }
 
@@ -700,41 +473,62 @@
         }
 
         async function displayProducts() {
-            const container = document.getElementById('productsList');
-            container.innerHTML = products.map(product => `
-                <div style="border: 1px solid #ccc; padding: 10px; margin: 10px 0;">
-                    <img src="${product.mainImage}" alt="${product.name}" style="width: 150px; height: 150px; object-fit: cover; cursor: pointer;" onclick="showProductDetail('${product.id}')">
-                    <h4>${product.name}</h4>
-                    <p>${product.description}</p>
-                    <p><strong>Price: $${product.price}</strong></p>
-                    <button onclick="buyProduct('${product.id}', '${product.name}', ${product.price})">Buy</button>
-                </div>
-            `).join('');
+            showLoading('productsList');
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/products`);
+                const products = await response.json();
+
+                if (response.ok) {
+                    const container = document.getElementById('productsList');
+                    container.innerHTML = products.map(product => `
+                        <div class="product-card">
+                            <img src="${product.mainImage}" alt="${product.name}" onclick="showProductDetail('${product._id}')">
+                            <h4>${product.name}</h4>
+                            <p>${product.description}</p>
+                            <p><strong>Price: $${product.price}</strong></p>
+                            <button onclick="buyProduct('${product._id}', '${product.name}', ${product.price})">Buy</button>
+                        </div>
+                    `).join('');
+                } else {
+                    showMessage('Failed to load products', 'error');
+                }
+            } catch (error) {
+                console.error('Display products error:', error);
+                showMessage('Network error loading products', 'error');
+            }
         }
 
-        function showProductDetail(productId) {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
+        async function showProductDetail(productId) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/products/${productId}`);
+                const product = await response.json();
 
-            const detailContent = document.getElementById('productDetailContent');
-            detailContent.innerHTML = `
-                <h2>${product.name}</h2>
-                <div style="margin: 20px 0;">
-                    <img src="${product.mainImage}" alt="${product.name}" style="width: 300px; height: 300px; object-fit: cover;">
-                </div>
-                <p><strong>Price: $${product.price}</strong></p>
-                <h3>Description:</h3>
-                <p>${product.detailedDescription}</p>
-                <h3>Additional Images:</h3>
-                <div style="display: flex; gap: 10px; margin: 20px 0;">
-                    <img src="${product.subImages[0]}" alt="Sub image 1" style="width: 150px; height: 150px; object-fit: cover;">
-                    <img src="${product.subImages[1]}" alt="Sub image 2" style="width: 150px; height: 150px; object-fit: cover;">
-                    <img src="${product.subImages[2]}" alt="Sub image 3" style="width: 150px; height: 150px; object-fit: cover;">
-                </div>
-                <button onclick="buyProduct('${product.id}', '${product.name}', ${product.price})" style="background: green; color: white; padding: 10px 20px; border: none; cursor: pointer; font-size: 16px;">Buy Now</button>
-            `;
+                if (response.ok) {
+                    const detailContent = document.getElementById('productDetailContent');
+                    detailContent.innerHTML = `
+                        <h2>${product.name}</h2>
+                        <div style="margin: 20px 0;">
+                            <img src="${product.mainImage}" alt="${product.name}" style="width: 300px; height: 300px; object-fit: cover;">
+                        </div>
+                        <p><strong>Price: $${product.price}</strong></p>
+                        <h3>Description:</h3>
+                        <p>${product.detailedDescription}</p>
+                        <h3>Additional Images:</h3>
+                        <div style="display: flex; gap: 10px; margin: 20px 0; flex-wrap: wrap;">
+                            ${product.subImages.map(img => `<img src="${img}" alt="Sub image" style="width: 150px; height: 150px; object-fit: cover;">`).join('')}
+                        </div>
+                        <button onclick="buyProduct('${product._id}', '${product.name}', ${product.price})" style="background: green; color: white; padding: 10px 20px; border: none; cursor: pointer; font-size: 16px;">Buy Now</button>
+                    `;
 
-            document.getElementById('productDetailModal').style.display = 'block';
+                    document.getElementById('productDetailModal').style.display = 'block';
+                } else {
+                    showMessage('Failed to load product details', 'error');
+                }
+            } catch (error) {
+                console.error('Show product detail error:', error);
+                showMessage('Network error loading product details', 'error');
+            }
         }
 
         function closeProductDetail() {
@@ -776,19 +570,45 @@
                 address: document.getElementById('orderAddress').value,
                 pincode: document.getElementById('orderPincode').value,
                 city: document.getElementById('orderCity').value,
-                taluka: document.getElementById('orderTaluka').value,
-                createdAt: new Date()
+                taluka: document.getElementById('orderTaluka').value
             };
 
-            // In a real app, this would be sent to a server
-            console.log('Order placed:', orderData);
-            
-            closeBuyModal();
-            document.getElementById('successModal').style.display = 'block';
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/orders`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(orderData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    closeBuyModal();
+                    document.getElementById('successModal').style.display = 'block';
+                } else {
+                    showMessage(data.error || 'Failed to place order', 'error');
+                }
+            } catch (error) {
+                console.error('Order error:', error);
+                showMessage('Network error placing order', 'error');
+            }
         }
 
         function closeSuccessModal() {
             document.getElementById('successModal').style.display = 'none';
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const modals = ['productDetailModal', 'buyModal', 'successModal'];
+            modals.forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
         }
     </script>
 </body>
