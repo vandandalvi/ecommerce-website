@@ -397,7 +397,7 @@
 <body>
     <!-- Navigation -->
     <nav>
-        <h1>🛍️ E-Commerce Store</h1>
+        <h1>E-Commerce Store</h1>
         <div id="navButtons">
             <button onclick="showLogin()">Login</button>
             <button onclick="showSignup()">Sign Up</button>
@@ -406,7 +406,7 @@
 
     <!-- Login Form -->
     <div id="loginSection" style="display: none;">
-        <h2>Welcome Back</h2>
+        <h2>Login</h2>
         <form id="loginForm">
             <input type="email" id="loginEmail" placeholder="Email" required>
             <input type="password" id="loginPassword" placeholder="Password" required>
@@ -421,7 +421,7 @@
 
     <!-- Signup Form -->
     <div id="signupSection" style="display: none;">
-        <h2>Create Account</h2>
+        <h2>Sign Up</h2>
         <form id="signupForm">
             <input type="text" id="signupName" placeholder="Full Name" required>
             <input type="email" id="signupEmail" placeholder="Email" required>
@@ -437,12 +437,10 @@
 
     <!-- Admin Dashboard -->
     <div id="adminDashboard" style="display: none;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-            <h2>📊 Admin Dashboard</h2>
-            <button onclick="logout()" style="background: #dc3545;">Logout</button>
-        </div>
+        <h2>Admin Dashboard</h2>
+        <button onclick="logout()">Logout</button>
         
-        <h3>➕ Add Product</h3>
+        <h3>Add Product</h3>
         <form id="addProductForm">
             <input type="text" id="productName" placeholder="Product Name" required>
             <textarea id="productDescription" placeholder="Product Description" required></textarea>
@@ -451,28 +449,26 @@
             <button type="submit">Add Product</button>
         </form>
 
-        <h3>📦 Products</h3>
+        <h3>Products</h3>
         <div id="adminProductsList"></div>
 
-        <h3>📋 Orders</h3>
+        <h3>Orders</h3>
         <div id="ordersList"></div>
     </div>
 
     <!-- Customer Dashboard -->
     <div id="customerDashboard" style="display: none;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-            <h2>Welcome, <span id="customerName"></span> 👋</h2>
-            <button onclick="logout()" style="background: #dc3545;">Logout</button>
-        </div>
+        <h2>Welcome, <span id="customerName"></span></h2>
+        <button onclick="logout()">Logout</button>
         
-        <h3>🛍️ Products</h3>
+        <h3>Products</h3>
         <div id="productsList"></div>
     </div>
 
     <!-- Buy Form Modal -->
-    <div id="buyModal">
-        <div>
-            <h3>📦 Order Details</h3>
+    <div id="buyModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);">
+        <div style="background: white; margin: 50px auto; padding: 20px; width: 400px;">
+            <h3>Order Details</h3>
             <div id="selectedProduct"></div>
             <form id="orderForm">
                 <input type="text" id="orderName" placeholder="Full Name" readonly>
@@ -482,54 +478,20 @@
                 <input type="text" id="orderPincode" placeholder="Pincode" required>
                 <input type="text" id="orderCity" placeholder="City" required>
                 <input type="text" id="orderTaluka" placeholder="Taluka" required>
-                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                    <button type="submit" style="flex: 1;">Confirm Order</button>
-                    <button type="button" onclick="closeBuyModal()" style="flex: 1;">Cancel</button>
-                </div>
+                <button type="submit">Confirm Order</button>
+                <button type="button" onclick="closeBuyModal()">Cancel</button>
             </form>
         </div>
     </div>
 
     <!-- Success Modal -->
-    <div id="successModal">
-        <div>
-            <h3>🎉 Thank you for shopping!</h3>
+    <div id="successModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);">
+        <div style="background: white; margin: 100px auto; padding: 20px; width: 300px; text-align: center;">
+            <h3>Thank you for shopping!</h3>
             <p>You will be notified on WhatsApp soon</p>
             <button onclick="closeSuccessModal()">OK</button>
         </div>
     </div>
-
-    <script>
-        // Add some basic functionality for demonstration
-        function showLogin() {
-            document.getElementById('loginSection').style.display = 'block';
-            document.getElementById('signupSection').style.display = 'none';
-        }
-
-        function showSignup() {
-            document.getElementById('signupSection').style.display = 'block';
-            document.getElementById('loginSection').style.display = 'none';
-        }
-
-        function closeBuyModal() {
-            document.getElementById('buyModal').style.display = 'none';
-        }
-
-        function closeSuccessModal() {
-            document.getElementById('successModal').style.display = 'none';
-        }
-
-        function logout() {
-            document.getElementById('adminDashboard').style.display = 'none';
-            document.getElementById('customerDashboard').style.display = 'none';
-            document.getElementById('loginSection').style.display = 'none';
-            document.getElementById('signupSection').style.display = 'none';
-            document.getElementById('navButtons').style.display = 'block';
-        }
-
-        // Show login form by default for demonstration
-        showLogin();
-    </script>
 
     <script>
         // Global variables
@@ -719,12 +681,29 @@
                         <p><strong>Pincode:</strong> ${order.pincode}</p>
                         <p><strong>City:</strong> ${order.city}</p>
                         <p><strong>Taluka:</strong> ${order.taluka}</p>
-                        <p><strong>Total:</strong> $${order.price}</p>
+                        <p><strong>Total:</strong> ${order.price}</p>
                         <p><strong>Date:</strong> ${new Date(order.createdAt).toLocaleString()}</p>
+                        <button onclick="deleteOrder('${order._id}')" style="background-color: #ff4444; color: white; border: none; padding: 5px 10px; cursor: pointer;">Delete Order</button>
                     </div>
                 `).join('');
             } catch (error) {
                 console.error('Failed to load orders:', error);
+            }
+        }
+
+        async function deleteOrder(id) {
+            if (confirm('Are you sure you want to delete this order? This action cannot be undone.')) {
+                try {
+                    const result = await apiCall(`/orders/${id}`, 'DELETE');
+                    if (result.error) {
+                        alert(result.error);
+                    } else {
+                        alert('Order deleted successfully!');
+                        await displayOrders(); // Refresh the orders list
+                    }
+                } catch (error) {
+                    alert('Failed to delete order. Please try again.');
+                }
             }
         }
 
@@ -806,6 +785,39 @@
         function closeSuccessModal() {
             document.getElementById('successModal').style.display = 'none';
         }
+    </script>
+
+
+    <script>
+        // Add some basic functionality for demonstration
+        function showLogin() {
+            document.getElementById('loginSection').style.display = 'block';
+            document.getElementById('signupSection').style.display = 'none';
+        }
+
+        function showSignup() {
+            document.getElementById('signupSection').style.display = 'block';
+            document.getElementById('loginSection').style.display = 'none';
+        }
+
+        function closeBuyModal() {
+            document.getElementById('buyModal').style.display = 'none';
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').style.display = 'none';
+        }
+
+        function logout() {
+            document.getElementById('adminDashboard').style.display = 'none';
+            document.getElementById('customerDashboard').style.display = 'none';
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('signupSection').style.display = 'none';
+            document.getElementById('navButtons').style.display = 'block';
+        }
+
+        // Show login form by default for demonstration
+        showLogin();
     </script>
 </body>
 </html>
