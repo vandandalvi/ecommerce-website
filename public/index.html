@@ -931,7 +931,7 @@
                             <img src="${product.mainImage}" alt="${product.name}">
                             <h4>${product.name}</h4>
                             <p>${product.description}</p>
-                            <p><strong>Price: $${product.price}</strong></p>
+                            <p><strong>Price: ₹${product.price}</strong></p>
                             <button onclick="deleteProduct('${product._id}')" class="delete-btn">Delete</button>
                         </div>
                     `).join('');
@@ -1091,7 +1091,7 @@
             selectedProductForOrder = { id: productId, name: productName, price: price };
             document.getElementById('selectedProduct').innerHTML = `
                 <h4>${productName}</h4>
-                <p>Price: $${price}</p>
+                <p>Price: ₹${price}</p>
             `;
 
             // Pre-fill customer name
