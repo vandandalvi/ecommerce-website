@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vandan's E-com</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,9 +15,9 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #e3f0ff 0%, #f9f9f9 100%);
+            background: #f5f7fa;
             min-height: 100vh;
-            color: #222;
+            color: #2d3748;
             overflow-x: hidden;
         }
 
@@ -31,14 +30,15 @@
             width: 100%;
             height: 100%;
             background:
-                radial-gradient(circle at 20% 80%, rgba(40, 116, 240, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 193, 7, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.08) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(66, 153, 225, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(49, 130, 206, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(99, 179, 237, 0.08) 0%, transparent 50%);
             z-index: -1;
             animation: backgroundFloat 20s ease-in-out infinite;
         }
 
         @keyframes backgroundFloat {
+
             0%,
             100% {
                 transform: translateY(0px);
@@ -55,32 +55,16 @@
             justify-content: space-between;
             align-items: center;
             padding: 18px 40px;
-            background: linear-gradient(90deg, #2874f0 80%, #ffc107 100%);
-            box-shadow: 0 4px 24px rgba(40,116,240,0.08);
+            background: #ffffff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             position: sticky;
             top: 0;
             z-index: 100;
-            animation: slideDown 0.8s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
         }
 
         nav h1 {
-            background: linear-gradient(135deg, #fff, #ffe082 60%, #2874f0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 2.2rem;
+            color: #2b6cb0;
+            font-size: 2.1rem;
             font-weight: 900;
             letter-spacing: -1px;
             display: flex;
@@ -88,42 +72,8 @@
         }
 
         nav h1 i {
-            color: #2874f0;
+            color: #3182ce;
             margin-right: 10px;
-        }
-
-        .nav-search {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            margin: 0 30px;
-            max-width: 500px;
-        }
-
-        .nav-search input {
-            width: 100%;
-            padding: 12px 18px;
-            border-radius: 30px 0 0 30px;
-            border: none;
-            font-size: 1rem;
-            background: #f1f3f6;
-            outline: none;
-            box-shadow: 0 2px 8px rgba(40,116,240,0.04);
-        }
-
-        .nav-search button {
-            padding: 12px 20px;
-            border-radius: 0 30px 30px 0;
-            border: none;
-            background: #2874f0;
-            color: #fff;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .nav-search button:hover {
-            background: #1856b6;
         }
 
         .nav-icons {
@@ -134,21 +84,23 @@
 
         .nav-icons .fa-shopping-cart {
             font-size: 1.5rem;
-            color: #fff;
-            background: #2874f0;
+            color: #4a5568;
+            background: #ebf8ff;
             border-radius: 50%;
             padding: 10px;
-            box-shadow: 0 2px 8px rgba(40,116,240,0.12);
-            transition: background 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.2s;
         }
 
         .nav-icons .fa-shopping-cart:hover {
-            background: #1856b6;
+            background: #3182ce;
+            color: #ffffff;
+            transform: scale(1.05);
         }
 
         #navButtons button {
-            background: linear-gradient(135deg, #2874f0 0%, #ffc107 100%);
-            color: #fff;
+            background: #3182ce;
+            color: #ffffff;
             border: none;
             padding: 12px 24px;
             border-radius: 50px;
@@ -156,17 +108,16 @@
             font-weight: 700;
             margin-left: 10px;
             font-size: 1rem;
-            box-shadow: 0 2px 8px rgba(40,116,240,0.08);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(49,130,206,0.2);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
 
         #navButtons button:hover {
-            background: linear-gradient(135deg, #ffc107 0%, #2874f0 100%);
-            color: #2874f0;
+            background: #2b6cb0;
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(40,116,240,0.18);
+            box-shadow: 0 4px 12px rgba(49,130,206,0.3);
         }
 
         /* Form Containers */
@@ -174,34 +125,16 @@
             max-width: 450px;
             margin: 40px auto;
             padding: 40px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
         }
 
         .form-container h2,
         .form-container h3 {
             text-align: center;
             margin-bottom: 30px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #2b6cb0;
             font-weight: 700;
         }
 
@@ -211,44 +144,39 @@
             width: 100%;
             padding: 16px 20px;
             margin: 12px 0;
-            border: 2px solid rgba(102, 126, 234, 0.1);
+            border: 2px solid #e2e8f0;
             border-radius: 12px;
             font-size: 16px;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.8);
+            background: #ffffff;
+            color: #2d3748;
+            transition: all 0.2s ease;
         }
 
         .form-container input:focus,
         .form-container select:focus,
         .form-container textarea:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-            transform: translateY(-2px);
+            border-color: #3182ce;
+            box-shadow: 0 0 0 3px rgba(49,130,206,0.2);
         }
 
         .form-container button {
             width: 100%;
             padding: 16px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: #3182ce;
+            color: #ffffff;
             border: none;
             border-radius: 12px;
             cursor: pointer;
             font-size: 16px;
             font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .form-container button:hover {
+            background: #2b6cb0;
             transform: translateY(-2px);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
-        }
-
-        .form-container button:active {
-            transform: translateY(0);
+            box-shadow: 0 4px 12px rgba(49,130,206,0.3);
         }
 
         /* Product Grid */
@@ -261,88 +189,67 @@
         }
 
         .product-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
             padding: 25px;
-            border-radius: 20px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             position: relative;
             overflow: hidden;
         }
 
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .product-card:hover::before {
-            transform: scaleX(1);
-        }
-
         .product-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            transform: translateY(-6px);
+            box-shadow: 0 8px 24px rgba(49,130,206,0.2);
         }
 
         .product-card img {
             width: 100%;
             height: 220px;
             object-fit: cover;
-            border-radius: 12px;
-            transition: transform 0.3s ease;
-        }
-
-        .product-card:hover img {
-            transform: scale(1.05);
+            border-radius: 10px;
+            background: #f7fafc;
         }
 
         .product-card h4 {
             margin: 15px 0 10px 0;
             font-size: 1.3rem;
             font-weight: 700;
-            color: #333;
+            color: #2d3748;
         }
 
         .product-card p {
-            color: #666;
+            color: #4a5568;
             margin-bottom: 15px;
             line-height: 1.5;
         }
 
         .product-card button {
             padding: 12px 20px;
-            background: linear-gradient(135deg, #00c851 0%, #007e33 100%);
-            color: white;
+            background: #3182ce;
+            color: #ffffff;
             border: none;
             border-radius: 25px;
             cursor: pointer;
             margin: 8px 5px;
             font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.2s;
         }
 
         .product-card button:hover {
+            background: #2b6cb0;
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 200, 81, 0.3);
+            box-shadow: 0 4px 12px rgba(49,130,206,0.3);
         }
 
         .product-card .delete-btn {
-            background: linear-gradient(135deg, #ff4757 0%, #c44569 100%);
+            background: #e53e3e;
+            color: #ffffff;
         }
 
         .product-card .delete-btn:hover {
-            box-shadow: 0 8px 20px rgba(255, 71, 87, 0.3);
+            background: #c53030;
         }
 
         /* Modal Styles */
@@ -353,54 +260,29 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
+            background: rgba(45,55,72,0.8);
             z-index: 1000;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
+            backdrop-filter: blur(4px);
         }
 
         .modal-content {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
+            background: #ffffff;
             margin: 5% auto;
             padding: 40px;
             width: 90%;
             max-width: 900px;
             max-height: 85vh;
             overflow-y: auto;
-            border-radius: 24px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            border-radius: 18px;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.2);
             position: relative;
-            animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                transform: translateY(-50px) scale(0.9);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0) scale(1);
-                opacity: 1;
-            }
         }
 
         .close-btn {
             position: absolute;
             top: 20px;
             right: 20px;
-            background: linear-gradient(135deg, #ff4757 0%, #c44569 100%);
+            background: #e53e3e;
             color: white;
             border: none;
             padding: 12px 16px;
@@ -408,56 +290,47 @@
             cursor: pointer;
             font-size: 18px;
             font-weight: bold;
-            transition: all 0.3s ease;
+            transition: all 0.2s;
         }
 
         .close-btn:hover {
-            transform: rotate(90deg) scale(1.1);
+            background: #c53030;
+            transform: scale(1.05);
         }
 
         /* Dashboard Styles */
         #adminDashboard,
         #customerDashboard {
             padding: 40px;
-            animation: fadeInUp 0.8s ease-out;
         }
 
         #adminDashboard h2,
         #customerDashboard h2 {
-            color: white;
-            font-size: 2.5rem;
+            color: #2b6cb0;
+            font-size: 2.2rem;
             margin-bottom: 30px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         #adminDashboard h3,
         #customerDashboard h3 {
-            color: white;
-            font-size: 1.8rem;
+            color: #2b6cb0;
+            font-size: 1.3rem;
             margin: 30px 0 20px 0;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         /* Order Cards */
         .order-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
             padding: 25px;
             margin: 15px 0;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .order-card:hover {
-            transform: translateY(-3px);
         }
 
         .order-status {
             padding: 8px 16px;
             border-radius: 20px;
-            color: white;
+            color: #ffffff;
             font-weight: 600;
             display: inline-block;
             text-transform: uppercase;
@@ -466,80 +339,81 @@
         }
 
         .status-pending {
-            background: linear-gradient(135deg, #ffc107 0%, #ff8f00 100%);
-            color: white;
+            background: #ecc94b;
+            color: #744210;
         }
 
         .status-completed {
-            background: linear-gradient(135deg, #00c851 0%, #007e33 100%);
+            background: #48bb78;
+            color: #ffffff;
         }
 
         .status-cancelled {
-            background: linear-gradient(135deg, #ff4757 0%, #c44569 100%);
+            background: #e53e3e;
+            color: #ffffff;
         }
 
         /* Message Areas */
         .loading {
             text-align: center;
             padding: 40px;
-            color: white;
+            color: #3182ce;
             font-size: 1.2rem;
         }
 
-        .loading::after {
-            content: '';
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-            margin-left: 10px;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
         .error {
-            color: #ff4757;
+            color: #e53e3e;
             padding: 16px 20px;
-            background: rgba(255, 71, 87, 0.1);
-            border: 1px solid rgba(255, 71, 87, 0.3);
+            background: #fff5f5;
+            border: 1px solid #fed7d7;
             border-radius: 12px;
             margin: 20px;
-            backdrop-filter: blur(10px);
         }
 
         .success {
-            color: #00c851;
+            color: #48bb78;
             padding: 16px 20px;
-            background: rgba(0, 200, 81, 0.1);
-            border: 1px solid rgba(0, 200, 81, 0.3);
+            background: #f0fff4;
+            border: 1px solid #c6f6d5;
             border-radius: 12px;
             margin: 20px;
-            backdrop-filter: blur(10px);
         }
 
         /* Logout Button */
         button[onclick="logout()"] {
-            background: linear-gradient(135deg, #ff4757 0%, #c44569 100%) !important;
-            color: white !important;
+            background: #e53e3e !important;
+            color: #ffffff !important;
             border: none !important;
             padding: 12px 24px !important;
             border-radius: 25px !important;
             cursor: pointer !important;
             font-weight: 600 !important;
-            transition: all 0.3s ease !important;
+            transition: all 0.2s !important;
             margin-bottom: 20px !important;
         }
 
         button[onclick="logout()"]:hover {
+            background: #c53030 !important;
             transform: translateY(-2px) !important;
-            box-shadow: 0 8px 20px rgba(255, 71, 87, 0.4) !important;
+            box-shadow: 0 4px 12px rgba(229,62,62,0.3) !important;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f7fafc;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3182ce;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2b6cb0;
         }
 
         /* Responsive Design */
@@ -628,16 +502,9 @@
     <!-- Navigation -->
     <nav>
         <h1><i class="fas fa-shopping-bag"></i>Vandan's Ecom</h1>
-        <div class="nav-search">
-            <input type="text" placeholder="Search for products, brands and more..." id="searchBar">
-            <button onclick="alert('Search coming soon!')"><i class="fas fa-search"></i></button>
-        </div>
-        <div class="nav-icons">
-            <i class="fas fa-shopping-cart" title="Cart"></i>
-            <div id="navButtons">
-                <button onclick="showLogin()"><i class="fas fa-sign-in-alt"></i> Login</button>
-                <button onclick="showSignup()"><i class="fas fa-user-plus"></i> Sign Up</button>
-            </div>
+        <div id="navButtons">
+            <button onclick="showLogin()"><i class="fas fa-sign-in-alt"></i> Login</button>
+            <button onclick="showSignup()"><i class="fas fa-user-plus"></i> Sign Up</button>
         </div>
     </nav>
 
