@@ -6,232 +6,629 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vandan's E-com</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1e40af;
-            --accent: #fbbf24;
-            --bg: #f9fafb;
-            --bg-dark: #181a20;
-            --card: #fff;
-            --card-dark: #23272f;
-            --text: #22223b;
-            --text-dark: #f3f4f6;
-            --success: #22c55e;
-            --danger: #ef4444;
-            --shadow: 0 4px 24px rgba(37,99,235,0.08);
-        }
-        [data-theme="dark"] {
-            --bg: var(--bg-dark);
-            --card: var(--card-dark);
-            --text: var(--text-dark);
-        }
-        html, body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', Arial, sans-serif;
-            min-height: 100vh;
+        * {
             margin: 0;
             padding: 0;
-            transition: background 0.3s, color 0.3s;
+            box-sizing: border-box;
         }
+
         body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
             overflow-x: hidden;
         }
-        /* Navbar */
+
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+            z-index: -1;
+            animation: backgroundFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundFloat {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Navigation */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 40px;
-            background: var(--card);
-            box-shadow: var(--shadow);
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 100;
-            transition: background 0.3s;
+            animation: slideDown 0.8s ease-out;
         }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
         nav h1 {
-            color: var(--primary);
-            font-size: 2.1rem;
-            font-weight: 900;
-            letter-spacing: -1px;
-            display: flex;
-            align-items: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
         }
-        nav h1 i {
-            color: var(--accent);
-            margin-right: 10px;
-        }
-        .nav-icons {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
-        .nav-icons .fa-shopping-cart {
-            font-size: 1.5rem;
-            color: var(--primary);
-            background: #e0e7ff;
-            border-radius: 50%;
-            padding: 10px;
-            box-shadow: var(--shadow);
-            transition: all 0.2s;
-            position: relative;
-        }
-        .nav-icons .fa-shopping-cart[data-count]:after {
-            content: attr(data-count);
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            background: var(--danger);
-            color: #fff;
-            font-size: 0.8rem;
-            border-radius: 50%;
-            padding: 2px 6px;
-            font-weight: bold;
-        }
-        .nav-icons .fa-shopping-cart:hover {
-            background: var(--primary);
-            color: #fff;
-            transform: scale(1.05);
-        }
-        #navButtons button, .theme-toggle {
-            background: var(--primary);
-            color: #fff;
+
+        #navButtons button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             border: none;
             padding: 12px 24px;
             border-radius: 50px;
             cursor: pointer;
-            font-weight: 700;
+            font-weight: 600;
             margin-left: 10px;
-            font-size: 1rem;
-            box-shadow: var(--shadow);
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
-        #navButtons button:hover, .theme-toggle:hover {
-            background: var(--primary-dark);
+
+        #navButtons button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        #navButtons button:hover::before {
+            left: 100%;
+        }
+
+        #navButtons button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Form Containers */
+        .form-container {
+            max-width: 450px;
+            margin: 40px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .form-container h2,
+        .form-container h3 {
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .form-container input,
+        .form-container select,
+        .form-container textarea {
+            width: 100%;
+            padding: 16px 20px;
+            margin: 12px 0;
+            border: 2px solid rgba(102, 126, 234, 0.1);
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-container input:focus,
+        .form-container select:focus,
+        .form-container textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
             transform: translateY(-2px);
         }
-        .theme-toggle {
-            background: var(--accent);
-            color: var(--primary-dark);
-            margin-left: 20px;
-        }
-        /* Hero Section */
-        .hero {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 60px 20px 30px 20px;
-            background: var(--card);
-            box-shadow: var(--shadow);
-            border-radius: 0 0 32px 32px;
-            margin-bottom: 30px;
-        }
-        .hero h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            color: #555;
-            margin-bottom: 20px;
-        }
-        .hero .cta-btn {
-            background: var(--accent);
-            color: var(--primary-dark);
-            font-weight: 800;
-            font-size: 1.1rem;
-            padding: 16px 36px;
-            border-radius: 32px;
+
+        .form-container button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             border: none;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-            transition: background 0.2s, color 0.2s;
-        }
-        .hero .cta-btn:hover {
-            background: var(--primary);
-            color: #fff;
-        }
-        /* Toast/Notification */
-        #toast {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            z-index: 2000;
-            min-width: 220px;
-            background: var(--primary);
-            color: #fff;
-            padding: 18px 32px;
             border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
             font-weight: 600;
-            box-shadow: var(--shadow);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s, transform 0.4s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
-        #toast.show {
-            opacity: 1;
-            pointer-events: auto;
+
+        .form-container button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .form-container button:active {
             transform: translateY(0);
         }
-        /* ... (rest of the CSS remains, but all cards, forms, modals, and product grid are polished for clarity, spacing, and micro-interactions. Admin dashboard: orders section comes before products. Cart modal and floating button for customers. Order history for customers. Product cards show static 5-star rating. Footer added.) ... */
-        .modal { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; z-index: 2000; }
-        .modal-content { background: var(--card); border-radius: 18px; box-shadow: var(--shadow); padding: 32px 24px; min-width: 320px; max-width: 95vw; max-height: 90vh; overflow-y: auto; position: relative; }
-        .auth-modal-content { display: flex; flex-direction: row; gap: 32px; }
-        .auth-form-section { flex: 1; min-width: 260px; }
-        .auth-products-section { flex: 1; min-width: 220px; display: flex; flex-direction: column; align-items: center; }
-        .dummy-products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 12px; }
-        .dummy-product-card { background: #f3f4f6; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 10px; display: flex; flex-direction: column; align-items: center; }
-        .dummy-product-card img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin-bottom: 6px; }
-        .dummy-product-info { display: flex; flex-direction: column; align-items: center; font-size: 0.95rem; }
-        .dummy-price { color: var(--primary); font-weight: 700; }
-        .cart-modal-content, .order-history-content { min-width: 340px; }
-        .cart-total-row { display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 700; margin: 18px 0; }
-        .close-btn { background: var(--danger); color: #fff; border: none; border-radius: 8px; padding: 8px 18px; margin-top: 10px; cursor: pointer; font-weight: 600; }
-        .spinner { border: 6px solid #e0e7ff; border-top: 6px solid var(--primary); border-radius: 50%; width: 48px; height: 48px; animation: spin 1s linear infinite; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        footer { background: var(--card); color: #888; padding: 24px 0 12px 0; text-align: center; margin-top: 40px; box-shadow: 0 -2px 12px rgba(0,0,0,0.04); }
-        .footer-content { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-        .footer-links { display: flex; gap: 24px; margin-bottom: 4px; }
-        .footer-links a { color: var(--primary); text-decoration: none; font-weight: 600; transition: color 0.2s; }
-        .footer-links a:hover { color: var(--primary-dark); }
-        .footer-info { font-size: 0.95rem; color: #666; }
-        @media (max-width: 700px) { .auth-modal-content { flex-direction: column; gap: 16px; } .footer-content { font-size: 0.95rem; } }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin: 40px 20px;
+            padding: 0 20px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 25px;
+            border-radius: 20px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-card h4 {
+            margin: 15px 0 10px 0;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .product-card p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .product-card button {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #00c851 0%, #007e33 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 8px 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 200, 81, 0.3);
+        }
+
+        .product-card .delete-btn {
+            background: linear-gradient(135deg, #ff4757 0%, #c44569 100%);
+        }
+
+        .product-card .delete-btn:hover {
+            box-shadow: 0 8px 20px rgba(255, 71, 87, 0.3);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            margin: 5% auto;
+            padding: 40px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 85vh;
+            overflow-y: auto;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            position: relative;
+            animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px) scale(0.9);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff4757 0%, #c44569 100%);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        /* Dashboard Styles */
+        #adminDashboard,
+        #customerDashboard {
+            padding: 40px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        #adminDashboard h2,
+        #customerDashboard h2 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        #adminDashboard h3,
+        #customerDashboard h3 {
+            color: white;
+            font-size: 1.8rem;
+            margin: 30px 0 20px 0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Order Cards */
+        .order-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 25px;
+            margin: 15px 0;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .order-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .order-status {
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: white;
+            font-weight: 600;
+            display: inline-block;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .status-pending {
+            background: linear-gradient(135deg, #ffc107 0%, #ff8f00 100%);
+            color: white;
+        }
+
+        .status-completed {
+            background: linear-gradient(135deg, #00c851 0%, #007e33 100%);
+        }
+
+        .status-cancelled {
+            background: linear-gradient(135deg, #ff4757 0%, #c44569 100%);
+        }
+
+        /* Message Areas */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .error {
+            color: #ff4757;
+            padding: 16px 20px;
+            background: rgba(255, 71, 87, 0.1);
+            border: 1px solid rgba(255, 71, 87, 0.3);
+            border-radius: 12px;
+            margin: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .success {
+            color: #00c851;
+            padding: 16px 20px;
+            background: rgba(0, 200, 81, 0.1);
+            border: 1px solid rgba(0, 200, 81, 0.3);
+            border-radius: 12px;
+            margin: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Logout Button */
+        button[onclick="logout()"] {
+            background: linear-gradient(135deg, #ff4757 0%, #c44569 100%) !important;
+            color: white !important;
+            border: none !important;
+            padding: 12px 24px !important;
+            border-radius: 25px !important;
+            cursor: pointer !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            margin-bottom: 20px !important;
+        }
+
+        button[onclick="logout()"]:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 20px rgba(255, 71, 87, 0.4) !important;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav h1 {
+                font-size: 1.5rem;
+            }
+
+            .form-container {
+                margin: 20px;
+                padding: 30px 20px;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                margin: 20px 10px;
+                padding: 0 10px;
+            }
+
+            #adminDashboard,
+            #customerDashboard {
+                padding: 20px;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+                padding: 20px;
+            }
+        }
+
+        /* Special Animations */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .form-container button:hover {
+            animation: pulse 0.6s ease-in-out;
+        }
+
+        /* Glassmorphism effect for cards */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+        }
     </style>
 </head>
 
 <body>
+    <!-- Navigation -->
     <nav>
         <h1><i class="fas fa-shopping-bag"></i>Vandan's Ecom</h1>
-        <div class="nav-icons">
-            <i class="fas fa-shopping-cart" id="cartIcon" data-count="0" onclick="openCart()"></i>
-            <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
-            <span id="navButtons"></span>
+        <div id="navButtons">
+            <button onclick="showLogin()"><i class="fas fa-sign-in-alt"></i> Login</button>
+            <button onclick="showSignup()"><i class="fas fa-user-plus"></i> Sign Up</button>
         </div>
     </nav>
-    <div class="hero" id="heroSection">
-        <h2>Welcome to Vandan's E-com!</h2>
-        <p>Discover top-rated products, exclusive deals, and a seamless shopping experience. Shop smart, shop modern.</p>
-        <button class="cta-btn" onclick="scrollToProducts()">Shop Now</button>
+
+    <!-- Error/Success Messages -->
+    <div id="messageArea"></div>
+
+    <!-- Login Form -->
+    <div id="loginSection" style="display: none;">
+        <div class="form-container">
+            <h2><i class="fas fa-lock"></i> Login</h2>
+            <form id="loginForm">
+                <input type="email" id="loginEmail" placeholder="✉️ Email" required>
+                <input type="password" id="loginPassword" placeholder="🔒 Password" required>
+                <select id="userType">
+                    <option value="customer">👤 Customer</option>
+                    <option value="admin">⚙️ Admin</option>
+                </select>
+                <button type="submit"><i class="fas fa-sign-in-alt"></i> Login</button>
+            </form>
+            <button onclick="showSignup()" style="background: transparent; color: #667eea; box-shadow: none;">Don't have
+                account? <strong>Sign Up</strong></button>
+        </div>
     </div>
-    <div id="toast"></div>
-    <!-- ... (rest of the HTML structure remains, but with admin dashboard orders before products, cart modal, order history, and all UI/UX improvements as described) ... -->
+
+    <!-- Signup Form -->
+    <div id="signupSection" style="display: none;">
+        <div class="form-container">
+            <h2><i class="fas fa-user-plus"></i> Sign Up</h2>
+            <form id="signupForm">
+                <input type="text" id="signupName" placeholder="👤 Full Name" required>
+                <input type="email" id="signupEmail" placeholder="✉️ Email" required>
+                <input type="password" id="signupPassword" placeholder="🔒 Password" required>
+                <select id="signupUserType">
+                    <option value="customer">Customer</option>
+                </select>
+                <button type="submit"><i class="fas fa-user-plus"></i> Sign Up</button>
+            </form>
+            <button onclick="showLogin()" style="background: transparent; color: #667eea; box-shadow: none;">Already
+                have account? <strong>Login</strong></button>
+        </div>
+    </div>
 
     <!-- Admin Dashboard -->
     <div id="adminDashboard" style="display: none;">
         <h2><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h2>
         <button onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
-
-        <!-- Orders section moved above products -->
-        <h3><i class="fas fa-shopping-cart"></i> Orders</h3>
-        <div id="ordersList"></div>
 
         <div class="form-container">
             <h3><i class="fas fa-plus-circle"></i> Add Product</h3>
@@ -254,6 +651,9 @@
 
         <h3><i class="fas fa-box-open"></i> Products</h3>
         <div id="adminProductsList" class="product-grid"></div>
+
+        <h3><i class="fas fa-shopping-cart"></i> Orders</h3>
+        <div id="ordersList"></div>
     </div>
 
     <!-- Customer Dashboard -->
@@ -265,144 +665,503 @@
         <div id="productsList" class="product-grid"></div>
     </div>
 
-    <!-- Login/Signup Modal with Dummy Product Showcase -->
-    <div id="authModal" class="modal" style="display:none;">
-        <div class="modal-content auth-modal-content">
-            <div class="auth-form-section">
-                <h2 id="authTitle">Login</h2>
-                <form id="authForm">
-                    <input type="text" id="authName" placeholder="Name" style="display:none;">
-                    <input type="email" id="authEmail" placeholder="Email" required>
-                    <input type="password" id="authPassword" placeholder="Password" required>
-                    <select id="authType">
-                        <option value="customer">Customer</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                    <button type="submit" class="cta-btn">Login</button>
-                </form>
-                <p id="authSwitchText">Don't have an account? <a href="#" onclick="switchAuthMode()">Sign up</a></p>
-            </div>
-            <div class="auth-products-section">
-                <h3>Popular Products</h3>
-                <div class="dummy-products-grid">
-                    <div class="dummy-product-card">
-                        <img src="https://images.unsplash.com/photo-1513708927688-890fe8a1df19?auto=format&fit=crop&w=200&q=80" alt="Headphones">
-                        <div class="dummy-product-info">
-                            <span>Wireless Headphones</span>
-                            <span class="dummy-price">₹1,999</span>
-                        </div>
-                    </div>
-                    <div class="dummy-product-card">
-                        <img src="https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=200&q=80" alt="Shoes">
-                        <div class="dummy-product-info">
-                            <span>Running Shoes</span>
-                            <span class="dummy-price">₹2,499</span>
-                        </div>
-                    </div>
-                    <div class="dummy-product-card">
-                        <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=200&q=80" alt="Watch">
-                        <div class="dummy-product-info">
-                            <span>Smart Watch</span>
-                            <span class="dummy-price">₹3,499</span>
-                        </div>
-                    </div>
-                    <div class="dummy-product-card">
-                        <img src="https://images.unsplash.com/photo-1512499617640-c2f999098c01?auto=format&fit=crop&w=200&q=80" alt="Backpack">
-                        <div class="dummy-product-info">
-                            <span>Travel Backpack</span>
-                            <span class="dummy-price">₹1,299</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Product Detail Modal -->
+    <div id="productDetailModal" class="modal">
+        <div class="modal-content">
+            <button onclick="closeProductDetail()" class="close-btn">×</button>
+            <div id="productDetailContent"></div>
         </div>
     </div>
 
-    <!-- Floating Cart Modal -->
-    <div id="cartModal" class="modal" style="display:none;">
-        <div class="modal-content cart-modal-content">
-            <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
-            <div id="cartItems"></div>
-            <div class="cart-total-row">
-                <span>Total:</span>
-                <span id="cartTotal">₹0</span>
-            </div>
-            <button class="cta-btn" onclick="checkoutCart()">Checkout</button>
-            <button class="close-btn" onclick="closeCart()">Close</button>
+    <!-- Buy Form Modal -->
+    <div id="buyModal" class="modal">
+        <div class="modal-content" style="width: 450px; height: auto;">
+            <h3><i class="fas fa-shopping-cart"></i> Order Details</h3>
+            <div id="selectedProduct"></div>
+            <form id="orderForm">
+                <input type="text" id="orderName" placeholder="👤 Full Name" readonly>
+                <input type="tel" id="orderPhone" placeholder="📱 Phone Number" required>
+                <input type="tel" id="orderAltPhone" placeholder="📞 Alternative Phone Number">
+                <textarea id="orderAddress" placeholder="🏠 Full Address" required></textarea>
+                <input type="text" id="orderPincode" placeholder="📮 Pincode" required>
+                <input type="text" id="orderCity" placeholder="🏙️ City" required>
+                <input type="text" id="orderTaluka" placeholder="🗺️ Taluka" required>
+                <button type="submit"><i class="fas fa-check-circle"></i> Confirm Order</button>
+                <button type="button" onclick="closeBuyModal()"
+                    style="background: linear-gradient(135deg, #ff4757 0%, #c44569 100%);"><i class="fas fa-times"></i>
+                    Cancel</button>
+            </form>
         </div>
     </div>
 
-    <!-- Customer Order History -->
-    <div id="orderHistoryModal" class="modal" style="display:none;">
-        <div class="modal-content order-history-content">
-            <h3><i class="fas fa-history"></i> Your Orders</h3>
-            <div id="orderHistoryList"></div>
-            <button class="close-btn" onclick="closeOrderHistory()">Close</button>
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content" style="width: 350px; height: auto; text-align: center;">
+            <h3><i class="fas fa-check-circle" style="color: #00c851; font-size: 3rem; margin-bottom: 20px;"></i></h3>
+            <h3>Thank you for shopping!</h3>
+            <p style="margin: 20px 0;">You will be notified on WhatsApp soon</p>
+            <button onclick="closeSuccessModal()"><i class="fas fa-thumbs-up"></i> OK</button>
         </div>
     </div>
 
-    <!-- Loading Spinner -->
-    <div id="loadingSpinner" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(255,255,255,0.6);z-index:3000;align-items:center;justify-content:center;">
-        <div class="spinner"></div>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="#">Home</a>
-                <a href="#" onclick="openOrderHistory()">My Orders</a>
-                <a href="#">Contact</a>
-                <a href="#">About</a>
-            </div>
-            <div class="footer-info">
-                <span>&copy; 2024 Vandan's E-com. All rights reserved.</span>
-                <span>Contact: support@vandanecom.com</span>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Add/Update JS for modal toggling, cart, order history, theme toggle, loading spinner, and dummy product switching in login -->
     <script>
-    // Modal toggling for login/signup
-    function openAuthModal(isSignup = false) {
-        document.getElementById('authModal').style.display = 'flex';
-        document.getElementById('authTitle').innerText = isSignup ? 'Sign Up' : 'Login';
-        document.getElementById('authName').style.display = isSignup ? 'block' : 'none';
-        document.getElementById('authForm').reset();
-        document.getElementById('authSwitchText').innerHTML = isSignup ? 'Already have an account? <a href="#" onclick="switchAuthMode()">Login</a>' : "Don't have an account? <a href='#' onclick='switchAuthMode()'>Sign up</a>";
-    }
-    function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
-    function switchAuthMode() {
-        const title = document.getElementById('authTitle').innerText;
-        openAuthModal(title === 'Login');
-    }
-    // Cart modal
-    function openCart() { document.getElementById('cartModal').style.display = 'flex'; renderCart(); }
-    function closeCart() { document.getElementById('cartModal').style.display = 'none'; }
-    // Order history modal
-    function openOrderHistory() { document.getElementById('orderHistoryModal').style.display = 'flex'; renderOrderHistory(); }
-    function closeOrderHistory() { document.getElementById('orderHistoryModal').style.display = 'none'; }
-    // Theme toggle
-    function toggleTheme() {
-        const html = document.documentElement;
-        if (html.getAttribute('data-theme') === 'dark') html.removeAttribute('data-theme');
-        else html.setAttribute('data-theme', 'dark');
-    }
-    // Loading spinner
-    function showLoading(id) {
-        document.getElementById('loadingSpinner').style.display = 'flex';
-        setTimeout(() => { document.getElementById('loadingSpinner').style.display = 'none'; }, 1200);
-    }
-    // Toast/notification
-    function showMessage(msg, type = 'info') {
-        const toast = document.getElementById('toast');
-        toast.innerText = msg;
-        toast.style.background = type === 'error' ? 'var(--danger)' : (type === 'success' ? 'var(--success)' : 'var(--primary)');
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2500);
-    }
-    // Dummy: renderCart, renderOrderHistory, and other logic should be implemented as per your backend and state management.
+        // Global variables
+        let currentUser = null;
+        let selectedProductForOrder = null;
+        const API_BASE_URL = window.location.origin; // Use current domain
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function () {
+            showLogin();
+
+            // Form event listeners
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+            document.getElementById('signupForm').addEventListener('submit', handleSignup);
+            document.getElementById('addProductForm').addEventListener('submit', handleAddProduct);
+            document.getElementById('orderForm').addEventListener('submit', handleOrder);
+        });
+
+        // Helper functions
+        function showMessage(message, type = 'success') {
+            const messageArea = document.getElementById('messageArea');
+            messageArea.innerHTML = `<div class="${type}">${message}</div>`;
+            setTimeout(() => {
+                messageArea.innerHTML = '';
+            }, 5000);
+        }
+
+        function showLoading(elementId) {
+            document.getElementById(elementId).innerHTML = '<div class="loading">Loading...</div>';
+        }
+
+        // Helper function to convert file to base64
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        // Navigation functions
+        function showLogin() {
+            hideAllSections();
+            document.getElementById('loginSection').style.display = 'block';
+        }
+
+        function showSignup() {
+            hideAllSections();
+            document.getElementById('signupSection').style.display = 'block';
+        }
+
+        function hideAllSections() {
+            const sections = ['loginSection', 'signupSection', 'adminDashboard', 'customerDashboard'];
+            sections.forEach(section => {
+                document.getElementById(section).style.display = 'none';
+            });
+        }
+
+        // Authentication functions
+        async function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const type = document.getElementById('userType').value;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password, type })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    currentUser = data.user;
+                    showMessage('Login successful!');
+
+                    if (type === 'admin') {
+                        showAdminDashboard();
+                    } else {
+                        showCustomerDashboard();
+                    }
+                    updateNavigation();
+                } else {
+                    showMessage(data.error || 'Login failed', 'error');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showMessage('Network error. Please try again.', 'error');
+            }
+        }
+
+        async function handleSignup(e) {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const type = document.getElementById('signupUserType').value;
+
+            // Prevent admin signup
+            if (type === 'admin') {
+                showMessage('Admin signup is not allowed. Please contact administrator.', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/signup`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, email, password, type })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showMessage('Account created successfully!');
+                    showLogin();
+                } else {
+                    showMessage(data.error || 'Signup failed', 'error');
+                }
+            } catch (error) {
+                console.error('Signup error:', error);
+                showMessage('Network error. Please try again.', 'error');
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            hideAllSections();
+            showLogin();
+            updateNavigation();
+            showMessage('Logged out successfully');
+        }
+
+        function updateNavigation() {
+            const navButtons = document.getElementById('navButtons');
+            if (currentUser) {
+                navButtons.innerHTML = `<span>Welcome, ${currentUser.name}</span> <button onclick="logout()">Logout</button>`;
+            } else {
+                navButtons.innerHTML = `<button onclick="showLogin()">Login</button> <button onclick="showSignup()">Sign Up</button>`;
+            }
+        }
+
+        // Admin functions
+        async function showAdminDashboard() {
+            hideAllSections();
+            document.getElementById('adminDashboard').style.display = 'block';
+            await displayAdminProducts();
+            await displayOrders();
+        }
+
+        async function handleAddProduct(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('productName').value;
+            const description = document.getElementById('productDescription').value;
+            const detailedDescription = document.getElementById('productDetailedDescription').value;
+            const price = parseFloat(document.getElementById('productPrice').value);
+
+            const mainImageFile = document.getElementById('productMainImage').files[0];
+            const subImage1File = document.getElementById('productSubImage1').files[0];
+            const subImage2File = document.getElementById('productSubImage2').files[0];
+            const subImage3File = document.getElementById('productSubImage3').files[0];
+
+            if (!mainImageFile || !subImage1File || !subImage2File || !subImage3File) {
+                showMessage('Please select all required images', 'error');
+                return;
+            }
+
+            try {
+                // Convert images to base64
+                const mainImage = await fileToBase64(mainImageFile);
+                const subImage1 = await fileToBase64(subImage1File);
+                const subImage2 = await fileToBase64(subImage2File);
+                const subImage3 = await fileToBase64(subImage3File);
+
+                const productData = {
+                    name,
+                    description,
+                    detailedDescription,
+                    price,
+                    mainImage,
+                    subImages: [subImage1, subImage2, subImage3]
+                };
+
+                const response = await fetch(`${API_BASE_URL}/api/products`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(productData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('addProductForm').reset();
+                    await displayAdminProducts();
+                    showMessage('Product added successfully!');
+                } else {
+                    showMessage(data.error || 'Failed to add product', 'error');
+                }
+            } catch (error) {
+                console.error('Add product error:', error);
+                showMessage('Failed to add product. Please try again.', 'error');
+            }
+        }
+
+        async function displayAdminProducts() {
+            showLoading('adminProductsList');
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/products`);
+                const products = await response.json();
+
+                if (response.ok) {
+                    const container = document.getElementById('adminProductsList');
+                    container.innerHTML = products.map(product => `
+                        <div class="product-card">
+                            <img src="${product.mainImage}" alt="${product.name}">
+                            <h4>${product.name}</h4>
+                            <p>${product.description}</p>
+                            <p><strong>Price: ₹${product.price}</strong></p>
+                            <button onclick="deleteProduct('${product._id}')" class="delete-btn">Delete</button>
+                        </div>
+                    `).join('');
+                } else {
+                    showMessage('Failed to load products', 'error');
+                }
+            } catch (error) {
+                console.error('Display products error:', error);
+                showMessage('Network error loading products', 'error');
+            }
+        }
+
+        async function deleteProduct(id) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/api/products/${id}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (response.ok) {
+                        await displayAdminProducts();
+                        showMessage('Product deleted successfully');
+                    } else {
+                        showMessage('Failed to delete product', 'error');
+                    }
+                } catch (error) {
+                    console.error('Delete product error:', error);
+                    showMessage('Network error deleting product', 'error');
+                }
+            }
+        }
+
+        async function displayOrders() {
+            showLoading('ordersList');
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/orders`);
+                const orders = await response.json();
+
+                if (response.ok) {
+                    const container = document.getElementById('ordersList');
+                    container.innerHTML = orders.map(order => `
+                        <div class="order-card">
+                            <h4>Order #${order._id.slice(-6)}</h4>
+                            <p><strong>Product:</strong> ${order.productName}</p>
+                            <p><strong>Customer:</strong> ${order.customerName}</p>
+                            <p><strong>Email:</strong> ${order.customerEmail}</p>
+                            <p><strong>Phone:</strong> ${order.phone}</p>
+                            <p><strong>Address:</strong> ${order.address}, ${order.city}, ${order.taluka} - ${order.pincode}</p>
+                            <p><strong>Price:</strong> ₹${order.price}</p>
+                            <p><strong>Date:</strong> ${new Date(order.createdAt).toLocaleDateString()}</p>
+                            <span class="order-status status-${order.status}">${order.status.toUpperCase()}</span>
+                            <button onclick="deleteOrder('${order._id}')" class="delete-btn" style="margin-left: 10px;">Delete</button>
+                        </div>
+                    `).join('');
+                } else {
+                    showMessage('Failed to load orders', 'error');
+                }
+            } catch (error) {
+                console.error('Display orders error:', error);
+                showMessage('Network error loading orders', 'error');
+            }
+        }
+
+        async function deleteOrder(id) {
+            if (confirm('Are you sure you want to delete this order?')) {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/api/orders/${id}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (response.ok) {
+                        await displayOrders();
+                        showMessage('Order deleted successfully');
+                    } else {
+                        showMessage('Failed to delete order', 'error');
+                    }
+                } catch (error) {
+                    console.error('Delete order error:', error);
+                    showMessage('Network error deleting order', 'error');
+                }
+            }
+        }
+
+        // Customer functions
+        async function showCustomerDashboard() {
+            hideAllSections();
+            document.getElementById('customerDashboard').style.display = 'block';
+            document.getElementById('customerName').textContent = currentUser.name;
+            await displayProducts();
+        }
+
+        async function displayProducts() {
+            showLoading('productsList');
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/products`);
+                const products = await response.json();
+
+                if (response.ok) {
+                    const container = document.getElementById('productsList');
+                    container.innerHTML = products.map(product => `
+                        <div class="product-card">
+                            <img src="${product.mainImage}" alt="${product.name}" onclick="showProductDetail('${product._id}')">
+                            <h4>${product.name}</h4>
+                            <p>${product.description}</p>
+                            <p><strong>Price: ₹${product.price}</strong></p>
+                            <button onclick="buyProduct('${product._id}', '${product.name}', ${product.price})">Buy</button>
+                        </div>
+                    `).join('');
+                } else {
+                    showMessage('Failed to load products', 'error');
+                }
+            } catch (error) {
+                console.error('Display products error:', error);
+                showMessage('Network error loading products', 'error');
+            }
+        }
+
+        async function showProductDetail(productId) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/products/${productId}`);
+                const product = await response.json();
+
+                if (response.ok) {
+                    const detailContent = document.getElementById('productDetailContent');
+                    detailContent.innerHTML = `
+                        <h2>${product.name}</h2>
+                        <div style="margin: 20px 0;">
+                            <img src="${product.mainImage}" alt="${product.name}" style="width: 300px; height: 300px; object-fit: cover;">
+                        </div>
+                        <p><strong>Price: ₹${product.price}</strong></p>
+                        <h3>Description:</h3>
+                        <p>${product.detailedDescription}</p>
+                        <h3>Additional Images:</h3>
+                        <div style="display: flex; gap: 10px; margin: 20px 0; flex-wrap: wrap;">
+                            ${product.subImages.map(img => `<img src="${img}" alt="Sub image" style="width: 150px; height: 150px; object-fit: cover;">`).join('')}
+                        </div>
+                        <button onclick="buyProduct('${product._id}', '${product.name}', ${product.price})" style="background: green; color: white; padding: 10px 20px; border: none; cursor: pointer; font-size: 16px;">Buy Now</button>
+                    `;
+
+                    document.getElementById('productDetailModal').style.display = 'block';
+                } else {
+                    showMessage('Failed to load product details', 'error');
+                }
+            } catch (error) {
+                console.error('Show product detail error:', error);
+                showMessage('Network error loading product details', 'error');
+            }
+        }
+
+        function closeProductDetail() {
+            document.getElementById('productDetailModal').style.display = 'none';
+        }
+
+        function buyProduct(productId, productName, price) {
+            selectedProductForOrder = { id: productId, name: productName, price: price };
+            document.getElementById('selectedProduct').innerHTML = `
+                <h4>${productName}</h4>
+                <p>Price: ₹${price}</p>
+            `;
+
+            // Pre-fill customer name
+            document.getElementById('orderName').value = currentUser.name;
+
+            // Close product detail modal if open
+            closeProductDetail();
+
+            document.getElementById('buyModal').style.display = 'block';
+        }
+
+        function closeBuyModal() {
+            document.getElementById('buyModal').style.display = 'none';
+            document.getElementById('orderForm').reset();
+        }
+
+        async function handleOrder(e) {
+            e.preventDefault();
+
+            const orderData = {
+                productId: selectedProductForOrder.id,
+                productName: selectedProductForOrder.name,
+                price: selectedProductForOrder.price,
+                customerName: document.getElementById('orderName').value,
+                customerEmail: currentUser.email,
+                phone: document.getElementById('orderPhone').value,
+                altPhone: document.getElementById('orderAltPhone').value,
+                address: document.getElementById('orderAddress').value,
+                pincode: document.getElementById('orderPincode').value,
+                city: document.getElementById('orderCity').value,
+                taluka: document.getElementById('orderTaluka').value
+            };
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/orders`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(orderData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    closeBuyModal();
+                    document.getElementById('successModal').style.display = 'block';
+                } else {
+                    showMessage(data.error || 'Failed to place order', 'error');
+                }
+            } catch (error) {
+                console.error('Order error:', error);
+                showMessage('Network error placing order', 'error');
+            }
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').style.display = 'none';
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function (event) {
+            const modals = ['productDetailModal', 'buyModal', 'successModal'];
+            modals.forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
     </script>
 </body>
 
